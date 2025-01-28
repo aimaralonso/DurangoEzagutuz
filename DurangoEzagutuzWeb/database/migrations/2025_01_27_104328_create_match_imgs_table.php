@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('match_img', function (Blueprint $table) {
+        Schema::create('match_imgs', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('img_before');
             $table->string('img_after');
         });
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('match_img');
+        Schema::dropIfExists('match_imgs');
     }
 };
