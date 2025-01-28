@@ -27,7 +27,6 @@ class LocationController extends Controller
             ], 404);
         }
     
-        // Validar los datos del request
         try {
             $validatedData = $request->validate([
                 'position' => 'required|integer',
@@ -49,13 +48,28 @@ class LocationController extends Controller
             ], 422);
         }
     
-        // Actualizar los datos en el modelo
         $location->fill($validatedData);
         $location->save();
     
-        // Respuesta JSON con los datos actualizados
         return response()->json([
             'message' => 'Location updated successfully',
+            'data' => $location,
+        ], 200);
+    }
+
+    // GET BY ID
+    public function getById($id)
+    {
+        $location = Location::find($id);
+
+        if (!$location) {
+            return response()->json([
+                'message' => 'Location not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Location retrieved successfully',
             'data' => $location,
         ], 200);
     }

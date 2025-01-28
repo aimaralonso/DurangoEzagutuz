@@ -21,4 +21,21 @@ class MatchImgController extends Controller
         $matchImg->update($request->all());
         return response()->json(['message' => 'Match image updated successfully', 'data' => $matchImg]);
     }
+
+    // GET BY ID
+    public function getById($id)
+    {
+        $matchImg = Match_img::find($id);
+
+        if (!$matchImg) {
+            return response()->json([
+                'message' => 'MatchImg not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'MatchImg retrieved successfully',
+            'data' => $matchImg,
+        ], 200);
+    }
 }

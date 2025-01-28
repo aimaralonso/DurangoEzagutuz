@@ -21,4 +21,21 @@ class MatchPairController extends Controller
         $matchPair->update($request->all());
         return response()->json(['message' => 'Match pair updated successfully', 'data' => $matchPair]);
     }
+
+    // GET BY ID
+    public function getById($id)
+    {
+        $matchPair = Match_pair::find($id);
+
+        if (!$matchPair) {
+            return response()->json([
+                'message' => 'MatchPair not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'MatchPair retrieved successfully',
+            'data' => $matchPair,
+        ], 200);
+    }
 }

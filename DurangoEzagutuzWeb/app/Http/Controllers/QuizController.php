@@ -21,4 +21,21 @@ class QuizController extends Controller
         $quiz->update($request->all());
         return response()->json(['message' => 'Quiz updated successfully', 'data' => $quiz]);
     }
+
+    // GET BY ID
+    public function getById($id)
+    {
+        $quiz = Quiz::find($id);
+
+        if (!$quiz) {
+            return response()->json([
+                'message' => 'Quiz not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'Quiz retrieved successfully',
+            'data' => $quiz,
+        ], 200);
+    }
 }
