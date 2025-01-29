@@ -1,0 +1,7 @@
+{
+  "name": "DurangoEzagutuz",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
