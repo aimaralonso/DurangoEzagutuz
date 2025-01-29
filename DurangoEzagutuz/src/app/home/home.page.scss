@@ -11,6 +11,7 @@ $ui-white: #ffffff;
 $ui-black: #000000;
 $button-bg: #38a57f;
 $button-stroke: #257458;
+$shadow-color: rgba(0, 0, 0, 0.25);
 
 // Mixins
 @mixin floating-animation($duration) {
@@ -49,16 +50,34 @@ $button-stroke: #257458;
   pointer-events: none;
 
   .cloud {
+    // Estilos comunes para todas las nubes
     position: absolute;
     background: $ui-white;
     border-radius: 50px;
     opacity: 0.9;
+    box-shadow: 2px 2px 10px rgba($ui-black, 0.1); // Sombra suave
+    border: 1px solid rgba($ui-black, 0.1); // Borde sutil
 
     &::after {
       content: "";
       position: absolute;
       background: $ui-white;
       border-radius: 50px;
+    }
+
+    &--medium2 {
+      width: 140px;
+      height: 60px;
+      top: 70%;
+      left: -10%;
+      @include floating-animation(12s);
+
+      &::after {
+        width: 80px;
+        height: 80px;
+        top: -30px;
+        left: 40px;
+      }
     }
 
     &--large {
@@ -81,21 +100,6 @@ $button-stroke: #257458;
       height: 60px;
       top: 50%;
       right: -10%;
-      @include floating-animation(14s);
-
-      &::after {
-        width: 80px;
-        height: 80px;
-        top: -30px;
-        right: 30px;
-      }
-    }
-
-    &--medium2 {
-      width: 140px;
-      height: 60px;
-      top: 80%;
-      right: 80%;
       @include floating-animation(14s);
 
       &::after {
@@ -148,7 +152,7 @@ $button-stroke: #257458;
 
   // Speech Bubble
   .speech-bubble {
-    background: rgba($ui-white, 0.8);
+    background: rgba($ui-white, 0.8);  // Fondo translúcido
     border-radius: 20px;
     padding: 1rem;
     backdrop-filter: blur(10px);
@@ -156,9 +160,24 @@ $button-stroke: #257458;
     text-align: center;
     margin: auto;
     margin-top: 5vh;
+    position: relative;  // Para permitir que la punta se posicione correctamente
+
+    // Agregar la punta del bocadillo
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -13px;  // Ajusta la altura de la punta
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;  // Hace la punta en el centro
+      border-right: 10px solid transparent;
+      border-top: 15px solid rgba($ui-white, 0.8);  // Color y forma de la punta
+    }
   }
 
-  // Dialog Text (Color de texto negro)
+  // Dialog Text
   .dialog-text {
     font-family: "Inter", sans-serif;
     font-size: 1rem;
@@ -171,24 +190,27 @@ $button-stroke: #257458;
     width: 300px;
     height: auto;
   }
+}
+.action-button__container {
+  margin-top: auto;
+  margin-bottom: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(10px 10px 15px $shadow-color);
+}
 
-  // Button System
-  .action-button__container {
-    margin-top: auto;
-    margin-bottom: 5vh;
-  }
+.action-button {
+  background: $button-bg;
+  border-radius: 34px;
+  border: 2px solid $button-stroke;
+  width: 200px;
+  height: 50px;
+}
 
-  .action-button {
-    background: $button-bg;
-    border-radius: 34px;
-    border: 2px solid $button-stroke;
-    width: 200px;
-    height: 50px;
-  }
-
-  .action-button__label {
-    font-family: "Vasca", sans-serif;
-    font-size: 1.25rem;
-    color: $ui-white;
-  }
+.action-button__label {
+  font-family: "Vasca", sans-serif;
+  font-size: 1.25rem;
+  color: $ui-white;
 }
