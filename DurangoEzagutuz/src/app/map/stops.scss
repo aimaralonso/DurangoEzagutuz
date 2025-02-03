@@ -1,0 +1,70 @@
+// Control variables
+$current-stop: 2;
+
+
+// Pulsation animation
+@keyframes active-pulse {
+    0% {
+        filter: grayscale(0%) saturate(1) contrast(1);
+    }
+    50% {
+        filter: grayscale(100%) saturate(0) contrast(0.5);
+    }
+    100% {
+        filter: grayscale(0%) saturate(1) contrast(1);
+    }
+}
+
+// Scale animation
+@keyframes scale-pulse {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+// Stop state mixin
+@mixin stop-state($stop-number) {
+    @if $stop-number < $current-stop {
+        // Completed stops
+        filter: none;
+        animation: none;
+    }
+    @else if $stop-number > $current-stop {
+        // Future stops
+        filter: grayscale(100%) saturate(0) contrast(0.5);
+        animation: none;
+    }
+    @else {
+        // Active stop
+        animation: active-pulse 2s infinite, scale-pulse 2s infinite;
+        filter: saturate(1) contrast(1);
+        z-index: 2;
+    }
+}
+
+@mixin step-state($step-number) {
+    @if $step-number > $current-stop {
+        content: "../../assets/images/paso.png";
+    }
+    @else {
+        content: "../../assets/images/pasoLlenop.png";
+    }
+}
+
+// Apply to stop markers
+.stop-markers {
+    @for $i from 1 through 5 {
+        .stop-#{$i} {
+            @include stop-state($i);
+            width: 50px; 
+            height: 50px; 
+            display: inline-block; 
+        }
+    }
+}

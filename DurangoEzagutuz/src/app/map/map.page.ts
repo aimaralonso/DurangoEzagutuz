@@ -14,6 +14,19 @@ export class MapPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
+    const currentStop = 2; 
 
+    document.querySelectorAll('.step').forEach((element) => {
+      const img = element as HTMLImageElement;
+      const stepNumber = parseInt(img.dataset['step'] || '0', 10);
+      
+      console.log(stepNumber, currentStop);
+      
+      if (stepNumber <= currentStop) {
+          img.src = "../../assets/images/pasoLleno.png";
+      } else {
+          img.src = "../../assets/images/paso.png";
+      }
+    });
+  }
 }

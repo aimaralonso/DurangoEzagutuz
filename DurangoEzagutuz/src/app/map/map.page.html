@@ -1,8 +1,63 @@
+<script src="/src/app/map/map.page.js"></script>
 <ion-content [fullscreen]="true">
-  <div  id="container">
-    <strong>Mapa</strong>
-    <h1>Contenido de Map Page</h1>
-    <p>Este es el contenido inicial de la página del mapa.</p>
-    <ion-button  routerLink="/description">Ir a Descripción</ion-button>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <div class="container">
+    <!-- Upper Section -->
+    <div class="upper-section">
+      <!-- Back Button with Icon -->
+      <button routerLink="/description" class="back-button">
+        <img src="../../assets/images/back.png" alt="Back Icon" />
+      </button>
+
+      <!-- Frog Image -->
+      <img src="../../assets/images/Frog.png" class="frog-character" alt="Frog">
+
+      <!-- Speech Bubble -->
+      <div class="speech-bubble">
+        <p>Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko</p>
+      </div>
+    </div>
+
+    <!-- Main Content with Background Image -->
+    <div class="map-section">
+      <!-- Compass Image -->
+      <img src="../../assets/images/brujula.png" class="compass" alt="Compás">
+
+      <!-- Zigzag Images with Steps -->
+      <div class="image-path">
+        <!-- First Image in Zigzag -->
+        <img src="../../assets/images/punto5.png" class="one" >
+
+        <!-- Second Image in Zigzag -->
+        <img src="../../assets/images/punto4.png" class="two" >
+
+        <!-- Third Image in Zigzag -->
+        <img src="../../assets/images/punto3.png" class="three" >
+
+        <!-- Fourth Image in Zigzag -->
+        <img src="../../assets/images/punto2.png" class="four" >
+
+        <div class="steps-group">
+          <img src="../../assets/images/paso.png" class="step step-1"   data-step="5">
+          <img src="../../assets/images/pasoLleno.png" class="step step-2"   data-step="5">
+          <img src="../../assets/images/pasoLleno.png" class="step step-3"   data-step="5">         
+          <img src="../../assets/images/pasoLleno.png" class="step step-4"   data-step="4">
+          <img src="../../assets/images/pasoLleno.png" class="step step-5"   data-step="4">
+          <img src="../../assets/images/pasoLleno.png" class="step step-6"   data-step="4">
+          <img src="../../assets/images/pasoLleno.png" class="step step-7"   data-step="3">
+          <img src="../../assets/images/pasoLleno.png" class="step step-8"   data-step="3">
+          <img src="../../assets/images/pasoLleno.png" class="step step-9"   data-step="3"> 
+          <img src="../../assets/images/pasoLleno.png" class="step step-10"  data-step="2">
+          <img src="../../assets/images/pasoLleno.png" class="step step-11"  data-step="2">
+          <img src="../../assets/images/pasoLleno.png" class="step step-12"  data-step="2">
+      </div>
+      
+
+        <!-- Fifth Image in Zigzag -->
+        <img src="../../assets/images/punto1.png" class="five" >
+      </div>
+    </div>
   </div>
+
 </ion-content>
