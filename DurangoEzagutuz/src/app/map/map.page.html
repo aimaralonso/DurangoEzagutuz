@@ -1,7 +1,6 @@
 <script src="/src/app/map/map.page.js"></script>
 <ion-content [fullscreen]="true">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <div class="container">
     <!-- Upper Section -->
     <div class="upper-section">
@@ -11,7 +10,11 @@
       </button>
 
       <!-- Frog Image -->
-      <img src="../../assets/images/Frog.png" class="frog-character" alt="Frog">
+      <img
+        src="../../assets/images/Frog.png"
+        class="frog-character"
+        alt="Frog"
+      />
 
       <!-- Speech Bubble -->
       <div class="speech-bubble">
@@ -22,42 +25,117 @@
     <!-- Main Content with Background Image -->
     <div class="map-section">
       <!-- Compass Image -->
-      <img src="../../assets/images/brujula.png" class="compass" alt="Compás">
+      <img src="../../assets/images/brujula.png" class="compass" alt="Compás" />
 
       <!-- Zigzag Images with Steps -->
       <div class="image-path">
-        <!-- First Image in Zigzag -->
-        <img src="../../assets/images/punto5.png" class="one" >
-
-        <!-- Second Image in Zigzag -->
-        <img src="../../assets/images/punto4.png" class="two" >
-
-        <!-- Third Image in Zigzag -->
-        <img src="../../assets/images/punto3.png" class="three" >
-
-        <!-- Fourth Image in Zigzag -->
-        <img src="../../assets/images/punto2.png" class="four" >
+        <img
+          src="../../assets/images/punto5.png"
+          class="one"
+          (click)="openCard(5)"
+        />
+        <img
+          src="../../assets/images/punto4.png"
+          class="two"
+          (click)="openCard(4)"
+        />
+        <img
+          src="../../assets/images/punto3.png"
+          class="three"
+          (click)="openCard(3)"
+        />
+        <img
+          src="../../assets/images/punto2.png"
+          class="four"
+          (click)="openCard(2)"
+        />
+        <img
+          src="../../assets/images/punto1.png"
+          class="five"
+          (click)="openCard(1)"
+        />
 
         <div class="steps-group">
-          <img src="../../assets/images/paso.png" class="step step-1"   data-step="5">
-          <img src="../../assets/images/pasoLleno.png" class="step step-2"   data-step="5">
-          <img src="../../assets/images/pasoLleno.png" class="step step-3"   data-step="5">         
-          <img src="../../assets/images/pasoLleno.png" class="step step-4"   data-step="4">
-          <img src="../../assets/images/pasoLleno.png" class="step step-5"   data-step="4">
-          <img src="../../assets/images/pasoLleno.png" class="step step-6"   data-step="4">
-          <img src="../../assets/images/pasoLleno.png" class="step step-7"   data-step="3">
-          <img src="../../assets/images/pasoLleno.png" class="step step-8"   data-step="3">
-          <img src="../../assets/images/pasoLleno.png" class="step step-9"   data-step="3"> 
-          <img src="../../assets/images/pasoLleno.png" class="step step-10"  data-step="2">
-          <img src="../../assets/images/pasoLleno.png" class="step step-11"  data-step="2">
-          <img src="../../assets/images/pasoLleno.png" class="step step-12"  data-step="2">
+          <img
+            src="../../assets/images/paso.png"
+            class="step step-1"
+            data-step="5"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-2"
+            data-step="5"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-3"
+            data-step="5"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-4"
+            data-step="4"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-5"
+            data-step="4"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-6"
+            data-step="4"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-7"
+            data-step="3"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-8"
+            data-step="3"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-9"
+            data-step="3"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-10"
+            data-step="2"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-11"
+            data-step="2"
+          />
+          <img
+            src="../../assets/images/pasoLleno.png"
+            class="step step-12"
+            data-step="2"
+          />
+        </div>
       </div>
-      
+    </div>
 
-        <!-- Fifth Image in Zigzag -->
-        <img src="../../assets/images/punto1.png" class="five" >
+    <div class="card-overlay" *ngIf="selectedLocation" (click)="closeCard()">
+      <div class="card-container" (click)="$event.stopPropagation()">
+        <ion-card class="custom-card">
+          <ion-card-header>
+            <ion-card-title class="custom-card-title">{{ selectedLocation.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <img [src]="selectedLocation.img" alt="{{ selectedLocation.name }}" class="custom-card-image" />
+            <div class="action-button__container">
+              <button routerLink="/description" class="action-button" [disabled]="selectedLocationId !== currentStop">
+                <span class="action-button__label">JOLASTU!</span>
+              </button>
+            </div>
+          </ion-card-content>
+        </ion-card>
       </div>
     </div>
   </div>
-
 </ion-content>
