@@ -1,12 +1,53 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Description</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding">
-  <h1>Descripción</h1>
-  <ion-button  routerLink="/explanation">Ir a Explanation</ion-button>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <!-- Botón de volver atrás -->
+    <div class="back-button-container">
+      <button routerLink="/description" class="back-button">
+        <img src="../../assets/images/back.png" alt="Back Icon" />
+      </button>
+    </div>
+
+    <div class="frog-speech">
+      <!-- Imagen de la rana -->
+      <div class="frog-image-container">
+        <img src="../../assets/images/Frog.png" alt="Frog" class="frog-image" />
+      </div>
+
+      <!-- Texto hardcodeado -->
+      <div class="speech-bubble">
+        <!-- Verificamos que exista selectedLocation -->
+        <ng-container *ngIf="selectedLocation; else noData">
+          <p>
+            <strong>{{ selectedLocation?.name }}</strong><br />
+            {{ selectedLocation?.description }}<br />
+            {{ selectedLocation?.explanation }}
+          </p>
+        </ng-container>
+        <ng-template #noData>
+          <p>No se ha seleccionado ninguna ubicación.</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Imagen de un cartel -->
+    <div class="poster-image-container">
+      <img
+        src="../../assets/images/cartel.png"
+        alt="Cartel"
+        class="poster-image"
+      />
+    </div>
+
+    <!-- Botón -->
+    <div class="action-button__container">
+      <button routerLink="/explanation" class="action-button">
+        <span class="action-button__label">JOLASTU!</span>
+      </button>
+    </div>
+    <img
+      src="../../assets/images/cartelPata.png"
+      alt="CartelPata"
+      class="poster-pata"
+    />
+  </div>
 </ion-content>
