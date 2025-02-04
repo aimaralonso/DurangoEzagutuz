@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Quiz</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Iteration for each sentence -->
+  <div *ngFor="let sentence of sentences; let i = index" class="sentence-container">
+    <div class="sentence-content">
+      <div class="sentence">
+        <h2>{{ sentence.sentence }}</h2>
+      </div>
+
+      <div class="img">
+        <img [src]="sentence.img" alt="Sentence img" />
+      </div>
+    </div>
+
+    <div *ngIf="showingAnswers[i]; else buttons" class="selected-answer">
+      <strong>{{ userResponse[i] }}</strong>
+    </div>
+
+    <ng-template #buttons>
+      <div class="buttons-container">
+        <ion-button expand="full" color="success" (click)="selectAnswer('egia', i)">
+          Egia
+        </ion-button>
+        <ion-button expand="full" color="danger" (click)="selectAnswer('gezurra', i)">
+          Gezurra
+        </ion-button>
+      </div>
+    </ng-template>
+
+    <hr *ngIf="i < sentences.length - 1" />
+  </div>
+
+  <div class="end-container" *ngIf="exerciseCompleted()">
+    <ion-button expand="full" color="success" (click)="checkAllAnswers()">
+      Zuzendu
+    </ion-button>
+  </div>
+</ion-content>
