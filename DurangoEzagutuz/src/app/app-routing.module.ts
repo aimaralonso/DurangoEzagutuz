@@ -33,6 +33,14 @@ const routes: Routes = [
     path: 'match-pairs',
     loadChildren: () => import('./match-pairs/match-pairs.module').then( m => m.MatchPairsPageModule)
   },
+  {
+    path: 'puzzle',
+    loadChildren: () => import('./puzzle/puzzle.module').then( m => m.PuzzlePageModule)
+  },
+  {
+    path: 'fillnames',
+    loadChildren: () => import('./fillnames/fillnames.module').then( m => m.FillnamesPageModule)
+  },
 
 ];
 
