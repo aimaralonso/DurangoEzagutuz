@@ -5,7 +5,7 @@ export class Location {
     description!: string; //La de los videos
     explanation!: string; //La de los textos
     lat!: number;
-    long!: number;
+    lon!: number;
     img!: string;
     audio!: string;
     video!: string;
