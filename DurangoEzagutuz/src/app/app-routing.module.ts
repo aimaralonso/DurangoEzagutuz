@@ -25,6 +25,10 @@ const routes: Routes = [
     path: 'quiz',
     loadChildren: () => import('./quiz/quiz.module').then( m => m.QuizPageModule)
   },
+  {
+    path: 'match-imgs',
+    loadChildren: () => import('./match-imgs/match-imgs.module').then( m => m.MatchImgsPageModule)
+  },
 
 ];
 
