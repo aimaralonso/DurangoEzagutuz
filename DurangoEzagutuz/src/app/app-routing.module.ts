@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'match-imgs',
     loadChildren: () => import('./match-imgs/match-imgs.module').then( m => m.MatchImgsPageModule)
   },
+  {
+    path: 'match-pairs',
+    loadChildren: () => import('./match-pairs/match-pairs.module').then( m => m.MatchPairsPageModule)
+  },
 
 ];
 
