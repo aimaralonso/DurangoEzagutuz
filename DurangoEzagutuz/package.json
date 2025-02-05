@@ -27,6 +27,7 @@
     "@capacitor/android": "7.0.1",
     "@capacitor/app": "7.0.0",
     "@capacitor/core": "7.0.1",
+    "@capacitor/geolocation": "^7.0.0",
     "@capacitor/haptics": "7.0.0",
     "@capacitor/keyboard": "7.0.0",
     "@capacitor/status-bar": "7.0.0",
@@ -37,6 +38,7 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uk.co.workingedge.cordova.plugin.sqliteporter": "^1.1.2",
+    "vite": "^6.0.11",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
