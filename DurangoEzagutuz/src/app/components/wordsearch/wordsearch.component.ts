@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-wordsearch',
   templateUrl: './wordsearch.component.html',
   styleUrls: ['./wordsearch.component.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule],
 })
 export class WordsearchComponent implements OnInit {
   grid: string[][] = [];

@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'word-search',
-    loadComponent: () => import('./word-search/word-search.module').then( m => m.WordSearchPage)
+    loadComponent: () => import('./word-search/word-search.page').then(m => m.WordSearchPage),
   },
 
 ];

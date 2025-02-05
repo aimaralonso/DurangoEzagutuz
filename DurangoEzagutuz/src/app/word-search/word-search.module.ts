@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { WordSearchPage } from './word-search.page';
 import { WordsearchComponent } from '../components/wordsearch/wordsearch.component';
 
-@Component({
-  selector: 'app-word-search',
-  templateUrl: './word-search.page.html',
-  styleUrls: ['./word-search.page.scss'],
-  standalone: true,
-  imports: [IonicModule, RouterModule, CommonModule, WordsearchComponent],
+@NgModule({
+  imports: [
+    CommonModule,
+    IonicModule,
+    WordsearchComponent,
+  ],
+  exports: [WordSearchPage],
 })
-export class WordSearchPage {
-  constructor() {}
-}
+export class WordSearchPageModule {}
