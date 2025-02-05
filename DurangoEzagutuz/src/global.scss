@@ -37,6 +37,10 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 @font-face {
-    font-family: 'Vasca';
-    src: url('assets/fonts/vasca.ttf');
-  }
+  font-family: 'Vasca';
+  src: url('assets/fonts/Vasca.woff2') format('woff2'),
+       url('assets/fonts/Vasca.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+

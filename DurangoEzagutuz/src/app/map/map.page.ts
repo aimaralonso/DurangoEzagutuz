@@ -37,10 +37,10 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 3',
       img: '../../assets/images/prueba.jpg',
       /* lat: 43.1668907,
-      lon: -2.6318913 *///Ubicacion 3 Real
-      lat:43.17937173107523, //Ubicacion cercana a la uni para testeos
+      lon: -2.6318913 */ //Ubicacion 3 Real
+      lat: 43.17937173107523, //Ubicacion cercana a la uni para testeos
       lon: -2.4899719,
-      description: "descripcion 3"
+      description: 'descripcion 3',
     } as unknown as Location,
     {
       id: 4,
@@ -48,7 +48,7 @@ export class MapPage implements OnInit {
       img: '../../assets/images/prueba.jpg',
       lat: 43.1657721,
       lon: -2.6320561,
-      description: "descripcion 4"
+      description: 'descripcion 4',
     } as unknown as Location,
     {
       id: 5,
@@ -56,7 +56,7 @@ export class MapPage implements OnInit {
       img: '../../assets/images/prueba.jpg',
       lat: 43.1649113,
       lon: -2.6324657,
-      description: "descripcion 5"
+      description: 'descripcion 5',
     } as unknown as Location,
   ];
   speechBubbleText: string =
@@ -91,30 +91,30 @@ export class MapPage implements OnInit {
       }
     });
     setTimeout(() => {
-      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
+      this.updateSpeechBubble(
+        this.currentLocation.lat,
+        this.currentLocation.lon
+      );
     }, 10000);
-   
-}
-setMode(mode: string) {
-  this.useGPS = mode === 'gps';
-  if (this.useGPS) {
-    this.startLocationUpdates();
-  } else {
-    this.stopLocationUpdates();
   }
-}
+  setMode(mode: string) {
+    this.useGPS = mode === 'gps';
+    if (this.useGPS) {
+      this.startLocationUpdates();
+    } else {
+      this.stopLocationUpdates();
+    }
+  }
   updateSpeechBubble(lat: number, lon: number) {
-    this.distance = this.calculateDistance(
-      lat,
-      lon
-    );
-    if( this.isDistanceWithinRange === true){
+    //this.distance = this.calculateDistance(lat, lon);
+    if (this.isDistanceWithinRange === true) {
       this.speechBubbleText = `<b>${this.currentLocation.name}</b> nahiko gertu daukazu Jolastu ahal duzu`;
+    } else {
+      this.speechBubbleText = `<b>${
+        this.currentLocation.name
+      }</b>tik ${Math.round(this.distance * 1000)} metrora zaude`;
     }
-    else{
-      this.speechBubbleText = `<b>${this.currentLocation.name}</b>tik ${Math.round(this.distance * 1000)} metrora zaude`;
-    }
-   
+
     this.cdr.detectChanges(); // Forzar la detección de cambios
   }
   // Abre la tarjeta buscando la ubicación según el id recibido
@@ -141,7 +141,7 @@ setMode(mode: string) {
 
       this.watchId = await Geolocation.watchPosition(
         options,
-        (position, err) => {
+        (position , err) => {
           if (err) {
             console.error('Error obteniendo la ubicación:', err);
             return;
@@ -150,10 +150,14 @@ setMode(mode: string) {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
             this.distance = this.calculateDistance(
-              this.currentLocation.lat, this.currentLocation.lon
+              this.currentLocation.lat,
+              this.currentLocation.lon
             );
-            this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
-            
+            this.updateSpeechBubble(
+              this.currentLocation.lat,
+              this.currentLocation.lon
+            );
+
             this.cdr.detectChanges(); // Forzar la detección de cambios
           }
         }
@@ -167,6 +171,9 @@ setMode(mode: string) {
       Geolocation.clearWatch({ id: this.watchId });
       this.watchId = null;
     }
+    this.selectedLocationId = this.currentStop;
+    this.currentLocation.lat = this.locations[this.currentStop].lat;
+    this.currentLocation.lon = this.locations[this.currentStop].lon;
     this.distance = 0;
     this.isDistanceWithinRange = true;
     this.cdr.detectChanges(); // Forzar la detección de cambios
@@ -194,11 +201,15 @@ setMode(mode: string) {
     if (this.currentStop < this.locations.length) {
       this.currentStop++;
       this.currentLocation = this.locations[this.currentStop - 1];
-      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
+      this.updateSpeechBubble(
+        this.currentLocation.lat,
+        this.currentLocation.lon
+      );
     }
   }
   goToDescription(): void {
-    this.router.navigate(['/description'], { state: { location: this.selectedLocation } });
+    this.router.navigate(['/description'], {
+      state: { location: this.selectedLocation },
+    });
   }
 }
-

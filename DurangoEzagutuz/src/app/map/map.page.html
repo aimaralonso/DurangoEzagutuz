@@ -1,14 +1,7 @@
 <script src="/src/app/map/map.page.js"></script>
 <ion-content [fullscreen]="true">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <div class="radio-buttons">
-    <label>
-      <input type="radio" name="mode" (change)="setMode('gps')" checked> Activar GPS
-    </label>
-    <label>
-      <input type="radio" name="mode" (change)="setMode('no-gps')"> Jugar sin GPS
-    </label>
-  </div>
+ 
   <div class="container">
     <!-- Upper Section -->
     <div class="upper-section">
@@ -29,6 +22,14 @@
       <div class="speech-bubble">
         <p [innerHTML]="speechBubbleText"></p>
       <!--   <p>Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko</p> -->
+      </div>
+      <div class="radio-buttons">
+        <label>
+          <input type="radio" name="mode" (change)="setMode('gps')" checked> Activar GPS
+        </label>
+        <label>
+          <input type="radio" name="mode" (change)="setMode('no-gps')"> Jugar sin GPS
+        </label>
       </div>
     </div>
 
@@ -139,7 +140,7 @@
           <ion-card-content>
             <img [src]="selectedLocation.img" alt="{{ selectedLocation.name }}" class="custom-card-image" />
             <div class="action-button__container">
-              <button routerLink="/description" class="action-button" [disabled]="selectedLocationId !== currentStop || isDistanceWithinRange===false">
+              <button (click)="goToDescription()" class="action-button" [disabled]="selectedLocationId !== currentStop || isDistanceWithinRange===false">
                 <span class="action-button__label">JOLASTU!</span>
               </button>
             </div>
