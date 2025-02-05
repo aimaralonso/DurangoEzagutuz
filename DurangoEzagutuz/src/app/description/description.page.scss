@@ -1,0 +1,126 @@
+$background-color: #fff9d6;
+$dialog-color: #caf49d;
+$design-width: 100vw;
+$design-height: 100vh;
+$primary-gradient: linear-gradient(
+  180deg,
+  #1281ff 0%,
+  #6ecf9f 75%,
+  #caf49d 100%
+);
+$ui-white: #ffffff;
+$ui-black: #000000;
+$button-bg: #38a57f;
+$button-stroke: #257458;
+$shadow-color: rgba(0, 0, 0, 0.25);
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: $background-color;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.back-button-container {
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+}
+
+.frog-speech {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre la rana y el speech bubble */
+  margin-bottom: 20px;
+}
+
+.frog-image-container {
+  width: 100px; /* Tamaño reducido de la rana */
+  height: auto;
+}
+
+.frog-image {
+  width: 100%;
+  height: auto;
+}
+
+.speech-bubble {
+  background: rgba($dialog-color, 0.8);
+  border-radius: 20px;
+  padding: 1rem;
+  backdrop-filter: blur(10px);
+  display: inline-block;
+  text-align: center;
+  position: relative;
+  color: black;
+  max-width: 200px; /* Ancho máximo del speech bubble */
+  height: 250px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 50%;
+    left: -15px;
+    transform: translateY(50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 15px solid rgba($dialog-color, 0.8);
+  }
+}
+
+.poster-image-container {
+  width: 400px; 
+  height: auto;
+  margin-bottom: -50px;
+}
+
+.poster-image {
+  width: 100%;
+  height: auto;
+}
+
+.action-button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25));
+}
+
+.action-button {
+  background: #38a57f;
+  border-radius: 34px;
+  border: 2px solid #257458;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  font-family: "Vasca", sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poster-pata {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 85%;
+    width: 100%;
+    object-fit: cover;
+  }

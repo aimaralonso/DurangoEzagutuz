@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { Location } from '../classes/location';
 import { Geolocation } from '@capacitor/geolocation';
@@ -20,14 +21,16 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 1',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1709785,
-      long: -2.630629
+      long: -2.630629,
+      description: "descripcion 1"
     } as unknown as Location,
     {
       id: 2,
       name: 'Ubicacion 2',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1679499,
-      long: -2.6316685
+      long: -2.6316685,
+      description: "descripcion 2"
     } as unknown as Location,
     {
       id: 3,
@@ -36,21 +39,24 @@ export class MapPage implements OnInit {
       /* lat: 43.1668907,
       long: -2.6318913 *///Ubicacion 3 Real
       lat:43.17937173107523, //Ubicacion cercana a la uni para testeos
-      long: -2.4899719
+      long: -2.4899719,
+      description: "descripcion 3"
     } as unknown as Location,
     {
       id: 4,
       name: 'Ubicacion 4',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1657721,
-      long: -2.6320561
+      long: -2.6320561,
+      description: "descripcion 4"
     } as unknown as Location,
     {
       id: 5,
       name: 'Ubicacion 5',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1649113,
-      long: -2.6324657
+      long: -2.6324657,
+      description: "descripcion 5"
     } as unknown as Location,
   ];
   speechBubbleText: string =
@@ -66,7 +72,7 @@ export class MapPage implements OnInit {
   currentLocation: Location = this.locations[this.currentStop];
   useGPS: boolean = true;
   private watchId: string | null = null; // Añadir watchId para controlar la geolocalización
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private router: Router) {
     this.startLocationUpdates();
   }
 
@@ -190,6 +196,9 @@ setMode(mode: string) {
       this.currentLocation = this.locations[this.currentStop - 1];
       this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.long);
     }
+  }
+  goToDescription(): void {
+    this.router.navigate(['/description'], { state: { location: this.selectedLocation } });
   }
 }
 

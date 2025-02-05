@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="container">
+    <div class="column left-column">
+      <div *ngFor="let image of beforeImages; let i = index" class="image-container" [class.matched]="image.matched"
+        (click)="selectLeftImage(i)">
+        <img [src]="image.src" alt="Left Image" />
+        <div class="dot left-dot"></div>
+      </div>
+    </div>
+    <div class="column right-column">
+      <div *ngFor="let image of afterImages; let i = index" class="image-container" [class.matched]="image.matched"
+        (click)="selectRightImage(i)">
+        <img [src]="image.src" alt="Right Image" />
+        <div class="dot right-dot"></div>
+      </div>
+    </div>
+    <svg class="lines">
+      <line *ngFor="let line of lines" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2" [attr.y2]="line.y2"
+        [attr.stroke]="line.color" stroke-width="5" stroke-linecap="round" />
+    </svg>
+  </div>
+</ion-content>

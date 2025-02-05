@@ -21,7 +21,27 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'quiz',
+    loadChildren: () => import('./quiz/quiz.module').then( m => m.QuizPageModule)
   },
+  {
+    path: 'match-imgs',
+    loadChildren: () => import('./match-imgs/match-imgs.module').then( m => m.MatchImgsPageModule)
+  },
+  {
+    path: 'match-pairs',
+    loadChildren: () => import('./match-pairs/match-pairs.module').then( m => m.MatchPairsPageModule)
+  },
+  {
+    path: 'puzzle',
+    loadChildren: () => import('./puzzle/puzzle.module').then( m => m.PuzzlePageModule)
+  },
+  {
+    path: 'fillnames',
+    loadChildren: () => import('./fillnames/fillnames.module').then( m => m.FillnamesPageModule)
+  },
+
 ];
 
 @NgModule({
