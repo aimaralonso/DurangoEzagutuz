@@ -21,7 +21,7 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 1',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1709785,
-      long: -2.630629,
+      lon: -2.630629,
       description: "descripcion 1"
     } as unknown as Location,
     {
@@ -29,7 +29,7 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 2',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1679499,
-      long: -2.6316685,
+      lon: -2.6316685,
       description: "descripcion 2"
     } as unknown as Location,
     {
@@ -37,9 +37,9 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 3',
       img: '../../assets/images/prueba.jpg',
       /* lat: 43.1668907,
-      long: -2.6318913 *///Ubicacion 3 Real
+      lon: -2.6318913 *///Ubicacion 3 Real
       lat:43.17937173107523, //Ubicacion cercana a la uni para testeos
-      long: -2.4899719,
+      lon: -2.4899719,
       description: "descripcion 3"
     } as unknown as Location,
     {
@@ -47,7 +47,7 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 4',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1657721,
-      long: -2.6320561,
+      lon: -2.6320561,
       description: "descripcion 4"
     } as unknown as Location,
     {
@@ -55,7 +55,7 @@ export class MapPage implements OnInit {
       name: 'Ubicacion 5',
       img: '../../assets/images/prueba.jpg',
       lat: 43.1649113,
-      long: -2.6324657,
+      lon: -2.6324657,
       description: "descripcion 5"
     } as unknown as Location,
   ];
@@ -91,7 +91,7 @@ export class MapPage implements OnInit {
       }
     });
     setTimeout(() => {
-      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.long);
+      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
     }, 10000);
    
 }
@@ -141,7 +141,7 @@ setMode(mode: string) {
 
       this.watchId = await Geolocation.watchPosition(
         options,
-        (position, err) => {
+        (position , err) => {
           if (err) {
             console.error('Error obteniendo la ubicación:', err);
             return;
@@ -150,9 +150,9 @@ setMode(mode: string) {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
             this.distance = this.calculateDistance(
-              this.currentLocation.lat, this.currentLocation.long
+              this.currentLocation.lat, this.currentLocation.lon
             );
-            this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.long);
+            this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
             
             this.cdr.detectChanges(); // Forzar la detección de cambios
           }
@@ -194,7 +194,7 @@ setMode(mode: string) {
     if (this.currentStop < this.locations.length) {
       this.currentStop++;
       this.currentLocation = this.locations[this.currentStop - 1];
-      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.long);
+      this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
     }
   }
   goToDescription(): void {
