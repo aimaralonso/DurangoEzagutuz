@@ -1,20 +1,22 @@
 <div class="wordsearch-container">
-  <div class="word-count">
-    <span>{{ wordsCount }}/{{ words.length }}</span>
+  <div class="word-count-container">
+    <div class="word-count">
+      <span class="word-count-text">{{ wordsCount }}/{{ words.length }}</span>
+    </div>
+
+    <div class="reset-button">
+      <ion-button fill="clear" (click)="resetSelection()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-button>
+    </div>
   </div>
 
   <div class="grid">
     <div *ngFor="let row of grid; let rIndex = index" class="grid-row">
-      <div *ngFor="let cell of row; let cIndex = index" class="cell" 
-           [class.selected]="isSelected(rIndex, cIndex)" 
-           [class.found]="isFound(rIndex, cIndex)" 
-           (click)="onLetterClick(rIndex, cIndex)">
+      <div *ngFor="let cell of row; let cIndex = index" class="cell" [class.selected]="isSelected(rIndex, cIndex)"
+        [class.found]="isFound(rIndex, cIndex)" (click)="onLetterClick(rIndex, cIndex)">
         {{ cell }}
       </div>
     </div>
-  </div>
-
-  <div class="selection">
-    <button (click)="resetSelection()">Reset selection</button>
   </div>
 </div>
