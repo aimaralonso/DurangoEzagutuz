@@ -1,25 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Match Pairs</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="game-container">
-    <div class="image-container">
-      <div *ngFor="let image of images; let i = index" class="image-box">
-        <img [src]="image.src" [alt]="image.alt" (click)="assignNameToImage(i)">
-        <div *ngIf="assignments[i]" class="name-overlay">{{ assignments[i] }}</div>
-      </div>
-    </div>
-
     <div class="name-container">
       <div *ngFor="let name of names" class="name-box" (click)="selectName(name)">
         {{ name }}
       </div>
     </div>
 
-    <ion-button expand="full" (click)="checkAssignments()">Verificar</ion-button>
+    <div class="image-container">
+      <div *ngFor="let image of images; let i = index" class="image-box">
+        <img [src]="image.src" [alt]="image.alt" (click)="assignNameToImage(i)">
+        <div *ngIf="assignments[i]" class="name-overlay">{{ assignments[i] }}</div>
+      </div>
+    </div>
+    <div class="action-button__container">
+      <button expand="full" (click)="checkAssignments()" class="action-button">
+        <span class="action-button__label">JARRAITU</span>
+      </button>
+    </div>
     <p class="message">{{ message }}</p>
   </div>
 </ion-content>

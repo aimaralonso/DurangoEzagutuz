@@ -1,3 +1,7 @@
+ion-content {
+    --background: #FFF9D6;
+}
+
 .game-container {
     display: flex;
     flex-direction: column;
@@ -6,43 +10,100 @@
     margin-top: 20px;
 }
 
-.image-container {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.image-box {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    border: 1px solid black;
-    text-align: center;
-    line-height: 80px;
-    cursor: pointer;
-}
-
 .name-container {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
     width: 100%;
     margin-bottom: 20px;
 }
 
 .name-box {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: lightgray;
-    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.name-box:hover {
+    background-color: #f1f1f1;
+}
+
+.image-container {
+    display: grid;
+    /* Usamos grid para un mejor control del layout */
+    grid-template-columns: repeat(2, 1fr);
+    /* Dos imágenes por fila */
+    gap: 20px;
+    /* Espacio entre las imágenes */
+    justify-items: center;
+    /* Centra las imágenes horizontalmente */
+    width: 100%;
+    margin-bottom: 20px;
+
+    /* Si hay solo una imagen en la última fila, la centramos */
+    &>.image-box:last-child:nth-child(odd) {
+        grid-column: span 2;
+        /* Hace que ocupe dos columnas, centrada horizontalmente */
+    }
+}
+
+.image-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    width: 160px;
+    height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-ion-button {
-    margin-top: 20px;
+.name-overlay {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: black;
+    text-align: center;
+    margin-top: 5px;
 }
 
-.message {
-    font-weight: bold;
-    margin-top: 10px;
+.action-button__container {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25));
+}
+
+.action-button {
+    background: #38a57f;
+    border-radius: 34px;
+    width: 200px;
+    height: 50px;
+}
+
+.action-button__label {
+    font-family: "Vasca", sans-serif;
+    font-size: 1.5rem;
+    color: #ffffff;
 }

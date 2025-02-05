@@ -32,11 +32,17 @@ export class MatchPairsPage {
   }
 
   assignNameToImage(index: number) {
-    if (this.selectedName) {
+    if (this.assignments[index]) {
+      this.names.push(this.assignments[index]);
+      delete this.assignments[index];
+    } else if (this.selectedName) {
       this.assignments[index] = this.selectedName;
-      this.selectedName = null; // Clear selection
+
+      this.names = this.names.filter((name) => name !== this.selectedName);
+  
+      this.selectedName = null;
     }
-  }
+  }   
 
   // Correct exercise
   checkAssignments() {
