@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Quiz</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
   <!-- Iteration for each sentence -->
   <div *ngFor="let sentence of sentences; let i = index" class="sentence-container">
@@ -36,7 +30,7 @@
   </div>
 
   <div class="end-container" *ngIf="exerciseCompleted()">
-    <ion-button expand="full" color="success" (click)="checkAllAnswers()">
+    <ion-button expand="full" id="checkButton" (click)="checkAllAnswers()">
       Zuzendu
     </ion-button>
   </div>

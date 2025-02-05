@@ -1,55 +1,102 @@
+// Fondo de toda la pantalla
+ion-content {
+    --background: #FFF9D6;
+}
+
 .sentence-container {
+    padding: 15px;
+    border-radius: 10px;
     margin-bottom: 20px;
+    text-align: center;
 
     .sentence-content {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
 
         .sentence {
             flex: 1;
-            margin-right: 20px;
+            text-align: left;
 
             h2 {
-                font-size: 1.2em;
+                font-size: 1.1em;
                 margin: 0;
+                font-weight: bold;
+                font-style: italic;
+                color: #333;
             }
         }
 
         .img {
             img {
-                width: 100px;
-                height: 100px;
-                border-radius: 10px;
+                width: 80px;
+                height: 80px;
+                border-radius: 5px;
+                object-fit: cover;
             }
         }
     }
 
     .buttons-container {
         display: flex;
-        gap: 10px;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ccc;
 
         ion-button {
             flex: 1;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 10px 15px;
+            text-transform: uppercase;
+            min-width: 100px;
+
+            &::part(native) {
+                border-radius: 20px;
+            }
+
+            &.success {
+                background-color: #39d139;
+                color: white;
+            }
+
+            &.danger {
+                background-color: #d13939;
+                color: white;
+            }
         }
     }
 
     .selected-answer {
         text-align: center;
         margin-top: 10px;
-        font-size: 1.2em;
+        font-size: 1.3em;
         font-weight: bold;
+        color: black;
+        text-transform: uppercase;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ccc;
     }
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: #ccc;
-    margin: 20px 0;
-}
-
 .end-container {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
+
+    ion-button {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: white;
+        width: 90%;
+        padding: 12px;
+        text-transform: uppercase;
+
+        &::part(native) {
+            border-radius: 20px;
+        }
+    }
 }

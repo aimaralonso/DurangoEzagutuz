@@ -1,3 +1,7 @@
+ion-content {
+    --background: #FFF9D6;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -17,6 +21,13 @@
     text-align: center;
 }
 
+.image-container img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin: 0 auto;
+}
+
 .dot {
     width: 20px;
     height: 20px;
@@ -28,11 +39,11 @@
 }
 
 .left-dot {
-    right: -10px;
+    right: 35px;
 }
 
 .right-dot {
-    left: -10px;
+    left: 35px;
 }
 
 .lines {

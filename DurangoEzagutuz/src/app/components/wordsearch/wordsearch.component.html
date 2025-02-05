@@ -1,0 +1,20 @@
+<div class="wordsearch-container">
+  <div class="word-count">
+    <span>{{ wordsCount }}/{{ words.length }}</span>
+  </div>
+
+  <div class="grid">
+    <div *ngFor="let row of grid; let rIndex = index" class="grid-row">
+      <div *ngFor="let cell of row; let cIndex = index" class="cell" 
+           [class.selected]="isSelected(rIndex, cIndex)" 
+           [class.found]="isFound(rIndex, cIndex)" 
+           (click)="onLetterClick(rIndex, cIndex)">
+        {{ cell }}
+      </div>
+    </div>
+  </div>
+
+  <div class="selection">
+    <button (click)="resetSelection()">Reset selection</button>
+  </div>
+</div>
