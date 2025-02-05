@@ -1,0 +1,60 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-gap: 5px;
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cell.found {
+    background-color: rgba(0, 200, 0, 0.5);
+    color: white;
+}
+
+.cell.selected {
+    background-color: rgba(0, 123, 255, 0.5);
+}
+
+.selection {
+    margin-bottom: 20px;
+}
+
+.selection button {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.found-words h3 {
+    font-size: 18px;
+}
+
+.found-words ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.found-words li {
+    font-size: 16px;
+    font-weight: bold;
+    color: green;
+}
+
+.found-words li.found {
+    text-decoration: underline;
+}

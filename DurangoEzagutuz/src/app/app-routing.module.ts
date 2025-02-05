@@ -21,7 +21,8 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },  {
+  },
+  {
     path: 'quiz',
     loadChildren: () => import('./quiz/quiz.module').then( m => m.QuizPageModule)
   },
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'fillnames',
     loadChildren: () => import('./fillnames/fillnames.module').then( m => m.FillnamesPageModule)
+  },
+  {
+    path: 'word-search',
+    loadComponent: () => import('./word-search/word-search.module').then( m => m.WordSearchPage)
   },
 
 ];
