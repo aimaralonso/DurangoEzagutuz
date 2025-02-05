@@ -31,34 +31,31 @@ export class QuizPage {
     },
   ];
 
-  userResponse: (string | null)[] = new Array(this.sentences.length).fill(
-    null
-  );
-  showingAnswers: boolean[] = new Array(this.sentences.length).fill(false);
+  userResponse: (string | null)[] = new Array(this.sentences.length).fill(null); // Store the answers
+  showingAnswers: boolean = false; // Flag to show answers with tick/cross
 
   constructor() {}
 
-  // Function for select answer
+  // Function to select the answer
   selectAnswer(answer: string, index: number) {
-    this.userResponse[index] = answer;
-    this.showingAnswers[index] = true;
+    this.userResponse[index] = answer; // Store the answer in userResponse array
   }
 
-  // Function for correct exercise
+  // Function to check all answers
   checkAllAnswers() {
-    let corrects = 0;
-    this.sentences.forEach((sentence, index) => {
-      if (this.userResponse[index] === sentence.answer) {
-        corrects++;
-      }
-    });
-
-    const totalSentences = this.sentences.length;
-    alert(`${totalSentences} galderetatik ${corrects} asmatu dituzu.`);
+    this.showingAnswers = true; // Reveal answers when ZUZENDU is clicked
   }
 
-  // Function for checking if exercise is completed
+  // Function to check if answer is correct or not
+  getAnswerStatus(index: number): 'success' | 'error' | null {
+    if (this.userResponse[index] === null) {
+      return null; // If no answer selected, no status
+    }
+    return this.userResponse[index] === this.sentences[index].answer ? 'success' : 'error';
+  }
+
+  // Function to check if exercise is completed
   exerciseCompleted(): boolean {
-    return this.userResponse.every((response) => response !== null);
+    return this.userResponse.every((response) => response !== null); // Check if all answers are selected
   }
 }

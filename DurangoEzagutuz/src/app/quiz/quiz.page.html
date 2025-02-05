@@ -11,27 +11,35 @@
       </div>
     </div>
 
-    <div *ngIf="showingAnswers[i]; else buttons" class="selected-answer">
+    <!-- Show selected answer text if it's chosen, without tick or cross -->
+    <div *ngIf="userResponse[i] !== null && !showingAnswers" class="selected-answer">
       <strong>{{ userResponse[i] }}</strong>
     </div>
 
-    <ng-template #buttons>
-      <div class="buttons-container">
-        <ion-button expand="full" color="success" (click)="selectAnswer('egia', i)">
-          Egia
-        </ion-button>
-        <ion-button expand="full" color="danger" (click)="selectAnswer('gezurra', i)">
-          Gezurra
-        </ion-button>
-      </div>
-    </ng-template>
+    <!-- Show selected answer with icon when showing answers -->
+    <div *ngIf="showingAnswers" class="selected-answer">
+      <strong>{{ userResponse[i] }}</strong>
+      <ion-icon *ngIf="getAnswerStatus(i) === 'success'" name="checkmark-circle" color="success"></ion-icon>
+      <ion-icon *ngIf="getAnswerStatus(i) === 'error'" name="close-circle" color="danger"></ion-icon>
+    </div>
+
+    <!-- Buttons to select the answer if not selected yet -->
+    <div class="buttons-container" *ngIf="!showingAnswers && userResponse[i] === null">
+      <ion-button expand="full" color="success" (click)="selectAnswer('egia', i)">
+        Egia
+      </ion-button>
+      <ion-button expand="full" color="danger" (click)="selectAnswer('gezurra', i)">
+        Gezurra
+      </ion-button>
+    </div>
 
     <hr *ngIf="i < sentences.length - 1" />
   </div>
 
-  <div class="end-container" *ngIf="exerciseCompleted()">
-    <ion-button expand="full" id="checkButton" (click)="checkAllAnswers()">
-      Zuzendu
-    </ion-button>
+  <!-- Button to check all answers -->
+  <div class="action-button__container">
+    <button class="action-button" (click)="checkAllAnswers()" [disabled]="!exerciseCompleted()">
+      <span class="action-button__label">ZUZENDU</span>
+    </button>
   </div>
 </ion-content>
