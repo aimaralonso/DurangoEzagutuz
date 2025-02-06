@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -10,11 +10,7 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, RouterModule, CommonModule],
 })
 export class MatchPairsPage {
-
-  // Name list
-  names = ['Traganarrua', 'Tartalo', 'Mari', 'Herensugea', 'Sugaar'];
-
-  // Image of each name
+  names = ['Traganarrua', 'Tartalo', 'Herensugea', 'Mari', 'Sugaar'];
   images = [
     { src: 'assets/images/paso.png', alt: 'Tartalo' },
     { src: 'assets/images/paso.png', alt: 'Traganarrua' },
@@ -24,11 +20,18 @@ export class MatchPairsPage {
   ];
 
   selectedName: string | null = null;
+  selectedNameIndex: number | null = null;
   assignments: { [key: number]: string } = {};
   message: string = '';
 
-  selectName(name: string) {
-    this.selectedName = name;
+  selectName(name: string, index: number) {
+    if (this.selectedNameIndex === index) {
+      this.selectedName = null;
+      this.selectedNameIndex = null;
+    } else {
+      this.selectedName = name;
+      this.selectedNameIndex = index;
+    }
   }
 
   assignNameToImage(index: number) {
@@ -37,14 +40,12 @@ export class MatchPairsPage {
       delete this.assignments[index];
     } else if (this.selectedName) {
       this.assignments[index] = this.selectedName;
-
-      this.names = this.names.filter((name) => name !== this.selectedName);
-  
+      this.names = this.names.filter(name => name !== this.selectedName);
       this.selectedName = null;
+      this.selectedNameIndex = null;
     }
-  }   
+  }
 
-  // Correct exercise
   checkAssignments() {
     const correctAssignments: { [key: number]: string } = {
       0: 'Tartalo',
@@ -64,5 +65,9 @@ export class MatchPairsPage {
     }
 
     this.message = allCorrect ? 'Ariketa ondo egin duzu!' : 'Zerbait gaizki egin duzu...';
+  }
+
+  exerciseCompleted(): boolean {
+    return Object.keys(this.assignments).length === this.images.length;
   }
 }

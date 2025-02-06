@@ -1,21 +1,23 @@
 <ion-content>
-  <div class="game-container">
-    <div class="name-container">
-      <div *ngFor="let name of names" class="name-box" (click)="selectName(name)">
-        {{ name }}
-      </div>
-    </div>
+    <div class="game-container">
+        <div class="name-container">
+            <div *ngFor="let name of names; let i = index" class="name-box"
+                [ngClass]="{'active': selectedNameIndex === i}" (click)="selectName(name, i)">
+                {{ name }}
+            </div>
+        </div>
 
-    <div class="image-container">
-      <div *ngFor="let image of images; let i = index" class="image-box">
-        <img [src]="image.src" [alt]="image.alt" (click)="assignNameToImage(i)">
-        <div *ngIf="assignments[i]" class="name-overlay">{{ assignments[i] }}</div>
-      </div>
+        <div class="image-container">
+            <div *ngFor="let image of images; let i = index" class="image-box">
+                <img [src]="image.src" [alt]="image.alt" (click)="assignNameToImage(i)">
+                <div *ngIf="assignments[i]" class="name-overlay">{{ assignments[i] }}</div>
+            </div>
+        </div>
+
+        <div class="action-button__container">
+            <button expand="full" (click)="checkAssignments()" [disabled]="!exerciseCompleted()" class="action-button">
+                <span class="action-button__label">JARRAITU</span>
+            </button>
+        </div>
     </div>
-    <div class="action-button__container">
-      <button expand="full" (click)="checkAssignments()" class="action-button">
-        <span class="action-button__label">JARRAITU</span>
-      </button>
-    </div>
-  </div>
 </ion-content>
