@@ -1,29 +1,35 @@
 <ion-content>
   <div class="game-container">
     <div class="image-container">
-      <img src="../../assets/images/4Ariketa.png" alt="Fill names game">
+      <img src="../../assets/images/4Ariketa.png" alt="Fill names game" />
 
-      <div *ngFor="let zone of dropZones; let i = index" class="drop-zone"
-        [ngStyle]="{'top': zone.top, 'left': zone.left}" (click)="assignWordToZone(i)">
+      <div
+        *ngFor="let zone of dropZones; let i = index"
+        class="drop-zone"
+        [ngStyle]="{'top': zone.top, 'left': zone.left}"
+        (click)="assignWordToZone(i)"
+      >
         {{ assignedWords[i] || '' }}
       </div>
     </div>
 
     <div class="word-container">
       <ng-container *ngFor="let word of words; let i = index">
-        <div *ngIf="word !== null" class="draggable-word" id="word-{{i}}" (click)="selectWord(i)">
+        <div
+          *ngIf="word !== null"
+          class="draggable-word"
+          id="word-{{i}}"
+          (click)="selectWord(i)"
+        >
           {{ word }}
         </div>
       </ng-container>
     </div>
-    
 
     <div class="action-button__container">
-      <button (click)="checkAnswers()" class="action-button" >
-        <span class="action-button__label">ZUZENDU</span>
+      <button (click)="checkAnswers()" class="action-button" [disabled]="!full">
+        <span class="action-button__label">{{ buttonLabel }}</span>
       </button>
     </div>
-
-    <p class="message">{{ message }}</p>
   </div>
 </ion-content>
