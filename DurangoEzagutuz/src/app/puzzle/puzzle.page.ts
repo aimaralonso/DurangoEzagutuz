@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule,  AlertController} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
@@ -12,9 +12,25 @@ import { Router } from '@angular/router';
 })
 export class PuzzlePage {
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private alertController: AlertController) {}
 
-  navigateToNewPage() {
-    this.router.navigate(['/fillnames']);
+  async navigateToNewPage() {
+    const alert = await this.alertController.create({
+      header: 'Konfirmatu',
+      message: 'Seguru puzzlea amaitu duzula?',
+      buttons: [
+        {
+          text: 'EZ',
+          role: 'cancel' // Cierra el alert sin acción adicional
+        },
+        {
+          text: 'BAI',
+          handler: () => { // Navega a la nueva página
+            this.router.navigate(['/fillnames']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
