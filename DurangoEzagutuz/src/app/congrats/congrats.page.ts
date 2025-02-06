@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { App } from '@capacitor/app';
+import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
@@ -9,11 +11,15 @@ import { IonicModule } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, RouterModule],
 })
-export class CongratsPage implements OnInit {
+export class CongratsPage {
 
-  constructor() { }
+  constructor(private platform: Platform) {}
 
-  ngOnInit() {
+  closeApp() {
+    if (this.platform.is('cordova') || this.platform.is('capacitor')) {
+      App.exitApp();
+    } else {
+      console.log("Closing app...");
+    }
   }
-
 }
