@@ -39,7 +39,9 @@
   <!-- Button to check all answers -->
   <div class="action-button__container">
     <button class="action-button" (click)="checkAllAnswers()" [disabled]="!exerciseCompleted()">
-      <span class="action-button__label">ZUZENDU</span>
+      <span class="action-button__label">
+        {{ showingAnswers ? (allAnswersCorrect() ? 'AMAITU' : 'ERREPIKATU') : 'ZUZENDU' }}
+      </span>
     </button>
   </div>
 </ion-content>

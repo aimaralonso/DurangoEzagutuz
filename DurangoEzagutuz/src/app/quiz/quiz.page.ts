@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-quiz',
@@ -34,7 +35,7 @@ export class QuizPage {
   userResponse: (string | null)[] = new Array(this.sentences.length).fill(null); // Store the answers
   showingAnswers: boolean = false; // Flag to show answers with tick/cross
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   // Function to select the answer
   selectAnswer(answer: string, index: number) {
@@ -43,7 +44,15 @@ export class QuizPage {
 
   // Function to check all answers
   checkAllAnswers() {
-    this.showingAnswers = true; // Reveal answers when ZUZENDU is clicked
+    if (!this.showingAnswers) {
+      this.showingAnswers = true;
+    } else {
+      if (this.allAnswersCorrect()) {
+        this.router.navigate(['/congrats']);
+      } else {
+        window.location.reload();
+      }
+    }
   }
 
   // Function to check if answer is correct or not
@@ -57,5 +66,11 @@ export class QuizPage {
   // Function to check if exercise is completed
   exerciseCompleted(): boolean {
     return this.userResponse.every((response) => response !== null); // Check if all answers are selected
+  }
+
+  allAnswersCorrect(): boolean {
+    return this.userResponse.every((response, index) => 
+      response === this.sentences[index].answer
+    );
   }
 }
