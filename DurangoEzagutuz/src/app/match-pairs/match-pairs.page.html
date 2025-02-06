@@ -16,8 +16,8 @@
 
         <div class="action-button__container">
             <button expand="full" (click)="checkAssignments()" [disabled]="!exerciseCompleted()" class="action-button">
-                <span class="action-button__label">JARRAITU</span>
-            </button>
+                <span class="action-button__label">{{ buttonLabel }}</span>
+            </button>            
         </div>
     </div>
 </ion-content>
