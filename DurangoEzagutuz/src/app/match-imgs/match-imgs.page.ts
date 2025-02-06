@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match-imgs',
@@ -14,9 +15,11 @@ export class MatchImgsPage {
   beforeImages = [
     { src: 'assets/images/paso.png', matched: false },
     { src: 'assets/images/paso.png', matched: false },
+    { src: 'assets/images/paso.png', matched: false },
   ];
 
   afterImages = [
+    { src: 'assets/images/paso.png', matched: false },
     { src: 'assets/images/paso.png', matched: false },
     { src: 'assets/images/paso.png', matched: false },
   ];
@@ -25,6 +28,7 @@ export class MatchImgsPage {
   correctPairs: { [key: number]: number } = {
     0: 1,
     1: 0,
+    2: 2,
   };
 
   userPairs: { [key: number]: number } = {};
@@ -33,7 +37,9 @@ export class MatchImgsPage {
   selectedRightIndex: number | null = null;
   matchedPairs = 0;
 
-  constructor() {}
+  allCorrect: boolean = false;
+
+  constructor(private router: Router) {} 
 
   selectLeftImage(index: number) {
     if (this.beforeImages[index].matched) return;
@@ -49,18 +55,22 @@ export class MatchImgsPage {
 
   checkMatch() {
     if (this.selectedLeftIndex !== null && this.selectedRightIndex !== null) {
-      // Save user pair
       this.userPairs[this.selectedLeftIndex] = this.selectedRightIndex;
-
-      // Draw the line
-      const leftDot = document.querySelectorAll('.left-dot')[this.selectedLeftIndex] as HTMLElement;
-      const rightDot = document.querySelectorAll('.right-dot')[this.selectedRightIndex] as HTMLElement;
-      const contentRect = document.querySelector('ion-content')!.getBoundingClientRect();
-
+  
+      const leftDot = document.querySelectorAll('.left-dot')[
+        this.selectedLeftIndex
+      ] as HTMLElement;
+      const rightDot = document.querySelectorAll('.right-dot')[
+        this.selectedRightIndex
+      ] as HTMLElement;
+      const contentRect = document
+        .querySelector('ion-content')!
+        .getBoundingClientRect();
+  
       if (leftDot && rightDot) {
         const leftRect = leftDot.getBoundingClientRect();
         const rightRect = rightDot.getBoundingClientRect();
-
+  
         const line = {
           x1: leftRect.left + leftRect.width / 2 - contentRect.left,
           y1: leftRect.top + leftRect.height / 2 - contentRect.top,
@@ -68,39 +78,33 @@ export class MatchImgsPage {
           y2: rightRect.top + rightRect.height / 2 - contentRect.top,
           color: this.getRandomColor(),
         };
-
+  
         this.lines.push(line);
       }
-
-      // Set images as matcehd
+  
       this.beforeImages[this.selectedLeftIndex].matched = true;
       this.afterImages[this.selectedRightIndex].matched = true;
       this.matchedPairs++;
-
+  
       this.selectedLeftIndex = null;
       this.selectedRightIndex = null;
-
-      // If exercise completed correct it
-      if (this.matchedPairs === Object.keys(this.correctPairs).length) {
-        this.checkResults();
-      }
+  
     }
   }
-
+  
   checkResults() {
-    let allCorrect = true;
-    
+    this.allCorrect = true;
+  
     for (const leftIndex in this.correctPairs) {
       if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
-        allCorrect = false;
+        this.allCorrect = false;
         break;
       }
     }
-
-    if (allCorrect) {
-      alert('Ariketa ondo egin duzu!');
-    } else {
-      alert('Zerbait gaizki egin duzu...');
+  
+    if (!this.allCorrect) {
+      // Si hay uniones incorrectas, reinicia las incorrectas
+      this.resetIncorrectPairs();
     }
   }
 
@@ -112,4 +116,45 @@ export class MatchImgsPage {
     }
     return color;
   }
+
+  exerciseCompleted(): boolean {
+    return this.matchedPairs === Object.keys(this.correctPairs).length;
+  }
+
+  resetIncorrectPairs() {
+    // Reiniciar las imágenes y las líneas incorrectas
+    for (const leftIndex in this.userPairs) {
+      if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
+        this.beforeImages[leftIndex].matched = false;
+        this.afterImages[this.userPairs[leftIndex]].matched = false;
+        this.matchedPairs--;
+      }
+    }
+  
+    // Limpiar las líneas incorrectas
+    this.lines = this.lines.filter((line, index) => {
+      const leftIndex = Object.keys(this.userPairs)[index];
+      return this.userPairs[Number(leftIndex)] === this.correctPairs[Number(leftIndex)];
+    });
+  
+    // Reiniciar el estado de las selecciones
+    this.userPairs = {};
+    this.selectedLeftIndex = null;
+    this.selectedRightIndex = null;
+  }
+
+  navigateToCongrats() {
+    this.router.navigate(['/congrats']);
+  }
+
+  handleButtonClick() {
+    if (this.exerciseCompleted()) {
+      if (!this.allCorrect) {
+        this.checkResults();
+      } else {
+        this.navigateToCongrats();
+      }
+    }
+  }
 }
+
