@@ -82,29 +82,34 @@ export class WordsearchComponent implements OnInit {
 
   onLetterClick(row: number, col: number) {
     const letter = this.grid[row][col];
-
+  
     if (this.selectedLetters.some(sel => sel.row === row && sel.col === col)) {
       return;
     }
   
     this.selectedLetters.push({ row, col });
-    this.currentSelection += letter;
-
-    if (this.words.includes(this.currentSelection)) {
-      this.foundWords.push(this.currentSelection);
-      
+  
+    const selectedWord = this.selectedLetters
+      .map(sel => this.grid[sel.row][sel.col])
+      .sort()
+      .join('');
+  
+    const sortedWords = this.words.map(word => word.split('').sort().join(''));
+  
+    if (sortedWords.includes(selectedWord)) {
+      this.foundWords.push(selectedWord);
+  
       this.foundLetters.push(...this.selectedLetters);
   
       this.selectedLetters = [];
       this.currentSelection = '';
-      
       this.wordsCount++;
-      
+  
       if (this.wordsCount === this.words.length) {
         alert('¡Felicidades, has encontrado todas las palabras!');
       }
     }
-  }
+  }  
 
   resetSelection() {
     this.selectedLetters = [];
