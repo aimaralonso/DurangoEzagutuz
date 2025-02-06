@@ -1,12 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Description</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="ion-padding">
-  <h1>Congrats</h1>
-  <ion-button  routerLink="/">Ir a Home</ion-button>
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <!-- Cloud Elements -->
+    <div class="cloud-group">
+      <div class="cloud cloud--large"></div>
+      <div class="cloud cloud--medium"></div>
+      <div class="cloud cloud--small"></div>
+      <div class="cloud cloud--medium2"></div>
+    </div>
+
+    <!-- Firework elements -->
+    <img id="firework-left" class="firework" src="assets/images/fuegos.png" />
+    <img id="firework-right" class="firework" src="assets/images/fuegos.png" />
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+      <h1 class="main-title">ZORIONAK!!</h1>
+
+      <!-- Dialog System -->
+      <div class="dialog-system">
+        <div class="speech-bubble">
+          <p class="dialog-text">Lortu duzu!<br><br>Hurrengo geralekura joan zaitezke.</p>
+        </div>
+        <img src="../../assets/images/Frog.png" class="frog-character" alt="Mascot frog">
+      </div>
+
+      <!-- Action Button -->
+      <div class="action-button__container">
+        <button routerLink="/map" class="action-button" (click)="closeApp()">
+          <span class="action-button__label">IRTEN</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </ion-content>
