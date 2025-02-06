@@ -1,7 +1,7 @@
 <ion-content>
   <div class="game-container">
     <div class="image-container">
-      <img src="../../assets/images/4Ariketa.jpg" alt="Fill names game">
+      <img src="../../assets/images/4Ariketa.png" alt="Fill names game">
 
       <div *ngFor="let zone of dropZones; let i = index" class="drop-zone"
         [ngStyle]="{'top': zone.top, 'left': zone.left}" (click)="assignWordToZone(i)">
