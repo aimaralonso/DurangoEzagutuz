@@ -104,10 +104,6 @@ export class WordsearchComponent implements OnInit {
       this.selectedLetters = [];
       this.currentSelection = '';
       this.wordsCount++;
-  
-      if (this.wordsCount === this.words.length) {
-        alert('¡Felicidades, has encontrado todas las palabras!');
-      }
     }
   }  
 
