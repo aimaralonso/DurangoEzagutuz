@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-wordsearch',
@@ -18,6 +19,8 @@ export class WordsearchComponent implements OnInit {
   currentSelection: string = '';
   foundLetters: { row: number; col: number }[] = [];
   wordsCount: number = 0;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.generateGrid();
@@ -118,5 +121,9 @@ export class WordsearchComponent implements OnInit {
   
   isFound(row: number, col: number): boolean {
     return this.foundLetters.some(sel => sel.row === row && sel.col === col);
+  }
+
+  goCongrats(){
+    this.router.navigate(['/congrats']);
   }
 }

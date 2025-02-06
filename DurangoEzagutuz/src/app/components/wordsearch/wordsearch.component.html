@@ -21,8 +21,8 @@
   </div>
 
   <div class="action-button__container">
-    <button class="action-button" [disabled]="wordsCount < words.length">
-      <span class="action-button__label">JARRAITU</span>
+    <button class="action-button" [disabled]="wordsCount < words.length" (click)="goCongrats()">
+      <span class="action-button__label">AMAITU</span>
     </button>
   </div>
 </div>
