@@ -18,13 +18,12 @@
       <line *ngFor="let line of lines" [attr.x1]="line.x1" [attr.y1]="line.y1" [attr.x2]="line.x2" [attr.y2]="line.y2"
         [attr.stroke]="line.color" stroke-width="5" stroke-linecap="round" />
     </svg>
-
-    <div class="action-button__container">
-      <button class="action-button" (click)="handleButtonClick()" [disabled]="!exerciseCompleted()">
-        <span class="action-button__label">
-          {{ exerciseCompleted() ? (allCorrect ? 'AMAITU' : 'ZUZENDU') : 'ZUZENDU' }}
-        </span>
-      </button>
-    </div>
+  </div>
+  <div class="action-button__container">
+    <button class="action-button" (click)="handleButtonClick()" [disabled]="!exerciseCompleted()">
+      <span class="action-button__label">
+        {{ exerciseCompleted() ? (allCorrect ? 'AMAITU' : 'ZUZENDU') : 'ZUZENDU' }}
+      </span>
+    </button>
   </div>
 </ion-content>
