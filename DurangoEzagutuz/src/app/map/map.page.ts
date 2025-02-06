@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { DatabaseService } from '../services/database.service';
 import { Location } from '../classes/location';
 import { Geolocation } from '@capacitor/geolocation';
 @Component({
@@ -15,52 +15,8 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class MapPage implements OnInit {
   // Lista con 5 objetos de la clase AppModels.Location (se asignan id, name e img)
-  locations: Location[] = [
-    {
-      id: 1,
-      name: 'Ubicacion 1',
-      img: '../../assets/images/prueba.jpg',
-      lat: 43.1709785,
-      lon: -2.630629,
-      description: "descripcion 1"
-    } as unknown as Location,
-    {
-      id: 2,
-      name: 'Ubicacion 2',
-      img: '../../assets/images/prueba.jpg',
-      lat: 43.1679499,
-      lon: -2.6316685,
-      description: "descripcion 2"
-    } as unknown as Location,
-    {
-      id: 3,
-      name: 'Ubicacion 3',
-      img: '../../assets/images/prueba.jpg',
-      /* lat: 43.1668907,
-      lon: -2.6318913 */ //Ubicacion 3 Real
-      lat: 43.17937173107523, //Ubicacion cercana a la uni para testeos
-      lon: -2.4899719,
-      description: 'descripcion 3',
-    } as unknown as Location,
-    {
-      id: 4,
-      name: 'Ubicacion 4',
-      img: '../../assets/images/prueba.jpg',
-      lat: 43.1657721,
-      lon: -2.6320561,
-      description: 'descripcion 4',
-    } as unknown as Location,
-    {
-      id: 5,
-      name: 'Ubicacion 5',
-      img: '../../assets/images/prueba.jpg',
-      lat: 43.1649113,
-      lon: -2.6324657,
-      description: 'descripcion 5',
-    } as unknown as Location,
-  ];
-  speechBubbleText: string =
-    'Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko';
+  locations: Location[] = [];
+  speechBubbleText: string ='Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko';
   // Propiedad para almacenar la ubicación seleccionada y mostrar la tarjeta
   selectedLocation: Location | null = null;
   selectedLocationId: number | null = null;
@@ -69,14 +25,54 @@ export class MapPage implements OnInit {
   longitude: number = 0;
   distance: number = 0;
   isDistanceWithinRange: boolean = false;
-  currentLocation: Location = this.locations[this.currentStop];
+  currentLocation: Location = this.locations[this.currentStop-1];
   useGPS: boolean = true;
   private watchId: string | null = null; // Añadir watchId para controlar la geolocalización
-  constructor(private cdr: ChangeDetectorRef, private router: Router) {
-    this.startLocationUpdates();
+  constructor(private databaseService: DatabaseService,private cdr: ChangeDetectorRef, private router: Router) {
+     this.startLocationUpdates();
   }
-
+  getLocations(): void {
+    this.databaseService.dbState().subscribe((res) => {
+      if (res) {
+        this.databaseService.fetchLocations().subscribe((data) => {
+          this.locations = data;
+          this.currentLocation = this.locations[this.currentStop - 1];
+          this.startLocationUpdates();
+          this.updateSpeechBubble(
+            this.currentLocation.lat,
+            this.currentLocation.lon
+          );
+          document.querySelectorAll('.step').forEach((element) => {
+            const img = element as HTMLImageElement;
+            const step = img.dataset['step'];
+            const stepNumber = step ? parseInt(step, 10) : 0;
+  
+            console.log(stepNumber, this.currentStop);
+  
+            if (stepNumber <= this.currentStop) {
+              img.src = '../../assets/images/pasoLleno.png';
+            } else {
+              img.src = '../../assets/images/paso.png';
+            }
+          });
+          setTimeout(() => {
+            this.updateSpeechBubble(
+              this.currentLocation.lat,
+              this.currentLocation.lon
+            );
+          }, 10000);
+        });
+      }
+    });
+  }
   ngOnInit() {
+    this.getLocations();
+    this.currentLocation = this.locations[this.currentStop-1];
+    this.startLocationUpdates();
+    this.updateSpeechBubble(
+      this.currentLocation.lat,
+      this.currentLocation.lon
+    );
     document.querySelectorAll('.step').forEach((element) => {
       const img = element as HTMLImageElement;
       const step = img.dataset['step'];
