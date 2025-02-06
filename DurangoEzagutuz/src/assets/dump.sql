@@ -1,12 +1,12 @@
--- Crear tabla Location
-CREATE TABLE IF NOT EXISTS Location (
-    id INT PRIMARY KEY,
+-- Crear tabla Locations
+CREATE TABLE IF NOT EXISTS Locations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     position INT,
     name VARCHAR(255),
     description TEXT,
     explanation TEXT,
-    lat VARCHAR(50),
-    lon VARCHAR(50),
+    lat DECIMAL(10,6),
+    lon DECIMAL(10,6),
     img VARCHAR(255),
     audio VARCHAR(255),
     video VARCHAR(255),
@@ -16,57 +16,57 @@ CREATE TABLE IF NOT EXISTS Location (
 
 -- Crear tabla Quiz
 CREATE TABLE IF NOT EXISTS Quiz (
-    id INT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     sentence TEXT,
     img VARCHAR(255),
-    answer BOOLEAN
+    answer TINYINT(1) -- Booleano (0 = falso, 1 = verdadero)
 );
 
 -- Crear tabla Match_img
 CREATE TABLE IF NOT EXISTS Match_img (
-    id INT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     img_before VARCHAR(255),
     img_after VARCHAR(255)
 );
 
 -- Crear tabla Match_pair
 CREATE TABLE IF NOT EXISTS Match_pair (
-    id INT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(255),
     img VARCHAR(255)
 );
 
 -- Crear tabla Progress
 CREATE TABLE IF NOT EXISTS Progress (
-    location_id INT PRIMARY KEY,
-    completed BOOLEAN,
-    FOREIGN KEY (location_id) REFERENCES Location(id)
+    location_id INTEGER PRIMARY KEY,
+    completed TINYINT(1),
+    FOREIGN KEY (location_id) REFERENCES Locations(id) ON DELETE CASCADE
 );
 
--- Insertar datos en Location
-INSERT OR IGNORE INTO Location (id, position, name, description, explanation, lat, lon, img, audio, video, time, activity)
+-- Insertar datos en Locations
+INSERT OR IGNORE INTO Locations (id, position, name, description, explanation, lat, lon, img, audio, video, time, activity)
 VALUES 
 (1, 1, 'Landako Gunea', 
- 'joko honetan 5 galdera erantzun beharko dituzu, enuntziatu bakoitzaren azpian bi botoi izango dituzu bat zuzenerako eta bestea gezurrerako. Erantzun ondoren, zuzentzeko aukera izango duzu. Denak ondo erantzun arte, jokoa berriro egin beharko duzu.', NULL, 43.1709785, -2.630629, 
+ 'joko honetan 5 galdera erantzun beharko dituzu...', NULL, 43.170978, -2.630629, 
  '../../assets/images/landakoGunea.jpeg', NULL, '../../assets/videos/landakoGunea.mp4', 90, 'Quiz'),
 
 (2, 2, 'Andra Mari Kalea', 
- 'joko honetan 5 irudi-pare elkartu beharko dituzu; bi puntutan sakatzean, gezi bat agertuko da, biak elkartzen dituena. Denak batu ondoren, zuzentzeko aukera izango duzu. Denak ondo batu arte, gaizki daudenak berriro batu beharko dituzu.', 
- '1937ko martxoaren 31n, goizeko 08:30ean Italiako tropek Durango bonbardatu zuten, Franco jeneralaren agindupean. Herria suntsituta geratu zen eta 336 pertsona hil ziren.', 43.1679499, -2.6316685, 
- '../../assets/images/AndraMariKaleajpg.jpg', NULL, NULL, 90, 'Match_img'),
+ 'joko honetan 5 irudi-pare elkartu beharko dituzu...', 
+ '1937ko martxoaren 31n...', 43.167950, -2.631669, 
+ '../../assets/images/AndraMariKalea.jpg', NULL, NULL, 90, 'Match_img'),
 
 (3, 3, 'Durangoko Udala', 
- 'joko honetan letra-zopa bat egin beharko duzu artopillen osagaien gainean. Jolasteko, hitz baten letrak banan-banan aukeratu behar dituzu. Denboran zehar 6 hitzak aurkitzen dituzunean irabaziko duzu.', 
- '1765.urtetik ospatzen den ekitaldia.  Gaur egun udaletxeko arkupetan.  Madalenen antzeko opila behealdean arto alea duena.', 43.1668907, -2.6318913, 
+ 'joko honetan letra-zopa bat egin beharko duzu...', 
+ '1765.urtetik ospatzen den ekitaldia...', 43.166891, -2.631891, 
  '../../assets/images/durangokoUdala.jpeg', '../../assets/audios/3Ariketa.mp3', NULL, 90, 'WordSearch'),
 
 (4, 4, 'Santa Anako Arkua', 
  'Joko hau bi zatitan banatzen da, lehena puzzle bat egitea da, eta bigarren zatian hitzak lotu behar dira dagozkien laukitxoetan. Hori guztia denbora zehatz bati jarraituz.', 
- ' Durangoko Santa Ana plazan kokatua. 1556ean sortua eta kontserbatzen den bakarra.  "Merkatuko portalea" esaten zioten lehen, bertatik sartzen zirelako durangarrak salgaiak ornitzeko eta asetzeko. 1743ean Juan de Herdoizak berritu zuen, estilo barroko batekin ordeztuz..', 43.1657721, -2.6320561, 
+ 'Durangoko Santa Ana plazan kokatua. 1556ean sortua eta kontserbatzen den bakarra.  "Merkatuko portalea" esaten zioten lehen, bertatik sartzen zirelako durangarrak salgaiak ornitzeko eta asetzeko. 1743ean Juan de Herdoizak berritu zuen, estilo barroko batekin ordeztuz.', 43.165772, -2.632056, 
  '../../assets/images/4Ariketa.png', NULL, NULL, 90, 'Puzzle'),
 
 (5, 5, 'Pinondo Plaza', 
- 'Joko honetan izenen bikoteak batu beharko dituzu izaki mitologikoen irudiekin, begiratu bideoari ezer baino lehen bakoitza ezagutzeko.', NULL, 43.1649113, -2.6324657, 
+ 'Joko honetan izenen bikoteak batu beharko dituzu...', NULL, 43.164911, -2.632466, 
  '../../assets/images/5Ariketa.jpeg', NULL, '../../assets/videos/5Ariketa.mp4', 90, 'MatchPairs');
 
 -- Insertar datos en Quiz
