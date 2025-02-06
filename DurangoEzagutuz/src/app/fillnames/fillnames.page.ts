@@ -22,10 +22,10 @@ export class FillnamesPage {
   };
   message: string = '';
   dropZones = [
-    { top: '25%', left: '37%' },
-    { top: '45%', left: '20%' },
-    { top: '20%', left: '70%' },
-    { top: '65%', left: '35%' }
+    { top: '17%', left: '35%' }, // Armariara
+    { top: '45%', left: '20%' }, // Begiratokia
+    { top: '30%', left: '70%' }, // Bupulak
+    { top: '65%', left: '35%' } // Arkua
   ];
   
   selectedWord: string | null = null;

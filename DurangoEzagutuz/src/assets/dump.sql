@@ -63,7 +63,7 @@ VALUES
 (4, 4, 'Santa Anako Arkua', 
  'Joko hau bi zatitan banatzen da, lehena puzzle bat egitea da, eta bigarren zatian hitzak lotu behar dira dagozkien laukitxoetan. Hori guztia denbora zehatz bati jarraituz.', 
  ' Durangoko Santa Ana plazan kokatua. 1556ean sortua eta kontserbatzen den bakarra.  "Merkatuko portalea" esaten zioten lehen, bertatik sartzen zirelako durangarrak salgaiak ornitzeko eta asetzeko. 1743ean Juan de Herdoizak berritu zuen, estilo barroko batekin ordeztuz..', 43.1657721, -2.6320561, 
- '../../assets/images/4Ariketa.jpeg', NULL, NULL, 90, 'Puzzle'),
+ '../../assets/images/4Ariketa.png', NULL, NULL, 90, 'Puzzle'),
 
 (5, 5, 'Pinondo Plaza', 
  'Joko honetan izenen bikoteak batu beharko dituzu izaki mitologikoen irudiekin, begiratu bideoari ezer baino lehen bakoitza ezagutzeko.', NULL, 43.1649113, -2.6324657, 
