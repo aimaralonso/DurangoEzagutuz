@@ -86,11 +86,6 @@ ion-button {
     margin-top: 20px;
 }
 
-.message {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
 .action-button__container {
     margin-top: 10%;
     display: flex;
@@ -112,3 +107,8 @@ ion-button {
     font-size: 1.25rem;
     color: #ffffff;
   }
+
+  .action-button:disabled {
+    background: grey;
+    cursor: not-allowed;
+}
