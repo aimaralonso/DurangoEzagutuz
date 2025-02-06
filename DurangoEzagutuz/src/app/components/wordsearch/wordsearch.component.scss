@@ -107,3 +107,29 @@ ion-button {
 .found-words li.found {
     text-decoration: underline;
 }
+
+.action-button__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25));
+}
+
+.action-button {
+    background: #38a57f;
+    border-radius: 34px;
+    width: 200px;
+    height: 50px;
+}
+
+.action-button:disabled {
+    background: grey;
+    cursor: not-allowed;
+}
+
+.action-button__label {
+    font-family: "Vasca", sans-serif;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+

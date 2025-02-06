@@ -31,28 +31,29 @@ ion-content {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .name-box:hover {
     background-color: #f1f1f1;
 }
 
+.name-box.active {
+    background-color: #38a57f;
+    color: white;
+    transform: scale(1.1);
+}
+
 .image-container {
     display: grid;
-    /* Usamos grid para un mejor control del layout */
     grid-template-columns: repeat(2, 1fr);
-    /* Dos imágenes por fila */
     gap: 20px;
-    /* Espacio entre las imágenes */
     justify-items: center;
-    /* Centra las imágenes horizontalmente */
     width: 100%;
     margin-bottom: 20px;
 
-    /* Si hay solo una imagen en la última fila, la centramos */
     &>.image-box:last-child:nth-child(odd) {
         grid-column: span 2;
-        /* Hace que ocupe dos columnas, centrada horizontalmente */
     }
 }
 
@@ -102,8 +103,13 @@ ion-content {
     height: 50px;
 }
 
+.action-button:disabled {
+    background: grey;
+    cursor: not-allowed;
+}
+
 .action-button__label {
     font-family: "Vasca", sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: #ffffff;
 }

@@ -16,16 +16,16 @@ export class PuzzlePage {
 
   async navigateToNewPage() {
     const alert = await this.alertController.create({
-      header: 'Konfirmatu',
+      header: 'Baieztatu',
       message: 'Seguru puzzlea amaitu duzula?',
       buttons: [
         {
           text: 'EZ',
-          role: 'cancel' // Cierra el alert sin acción adicional
+          role: 'cancel'
         },
         {
           text: 'BAI',
-          handler: () => { // Navega a la nueva página
+          handler: () => {
             this.router.navigate(['/fillnames']);
           }
         }
