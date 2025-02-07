@@ -13,6 +13,7 @@ export class DatabaseService {
   locationsList = new BehaviorSubject<Location[]>([]);
   quizList = new BehaviorSubject<any[]>([]);
   matchPairsList = new BehaviorSubject<any[]>([]);
+  matchImgsList = new BehaviorSubject<any[]>([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(
     private platform: Platform,
@@ -47,6 +48,7 @@ export class DatabaseService {
             this.getLocations();
             this.getQuiz();
             this.getMatchPairs();
+            this.getMatchImgs();
             this.isDbReady.next(true);
           })
           .catch((error) => console.error(error));
@@ -130,5 +132,28 @@ export class DatabaseService {
 
   fetchMatchPairs(): Observable<any[]> {
     return this.matchPairsList.asObservable();
+  }
+
+  async getMatchImgs() {
+    try {
+      const res = await this.storage.executeSql('SELECT * FROM Match_img', []);
+      let items: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            img_before: res.rows.item(i).img_before,
+            img_after: res.rows.item(i).img_after,
+          });
+        }
+      }
+      this.matchImgsList.next(items);
+    } catch (error) {
+      console.error('Error en getMatchImgs', error);
+    }
+  }
+
+  fetchMatchImgs(): Observable<any[]> {
+    return this.matchImgsList.asObservable();
   }
 }

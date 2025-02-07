@@ -1,45 +1,58 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-match-imgs',
+  standalone: true,
+  imports: [IonicModule, CommonModule],
   templateUrl: './match-imgs.page.html',
   styleUrls: ['./match-imgs.page.scss'],
-  imports: [IonicModule, RouterModule, CommonModule],
 })
-export class MatchImgsPage {
-  // Define images of each column
-  beforeImages = [
-    { src: 'assets/images/paso.png', matched: false },
-    { src: 'assets/images/paso.png', matched: false },
-    { src: 'assets/images/paso.png', matched: false },
-  ];
-
-  afterImages = [
-    { src: 'assets/images/paso.png', matched: false },
-    { src: 'assets/images/paso.png', matched: false },
-    { src: 'assets/images/paso.png', matched: false },
-  ];
-
-  // (left -> right)
-  correctPairs: { [key: number]: number } = {
-    0: 1,
-    1: 0,
-    2: 2,
-  };
-
+export class MatchImgsPage implements OnInit {
+  beforeImages: any[] = [];
+  afterImages: any[] = [];
+  correctPairs: { [key: number]: number } = {};
   userPairs: { [key: number]: number } = {};
   lines: any[] = [];
   selectedLeftIndex: number | null = null;
   selectedRightIndex: number | null = null;
   matchedPairs = 0;
-
   allCorrect: boolean = false;
 
-  constructor(private router: Router) {} 
+  constructor(
+    private router: Router,
+    private databaseService: DatabaseService
+  ) {}
+
+  ngOnInit() {
+    // Cargar las imágenes de la base de datos
+    this.databaseService.fetchMatchImgs().subscribe((data: any[]) => {
+      this.beforeImages = data.map(item => ({
+        src: item.img_before,
+        matched: false,
+      }));
+      this.afterImages = data.map(item => ({
+        src: item.img_after,
+        matched: false,
+      }));
+
+      // Emparejar las imágenes correctamente (debes definir los pares correctos en función de los datos)
+      // Suponiendo que los elementos de la base de datos tienen una relación de índice a índice
+      this.correctPairs = this.createCorrectPairs(data);
+    });
+  }
+
+  createCorrectPairs(data: any[]): { [key: number]: number } {
+    // Crea los pares correctos basados en los datos de la base de datos
+    let pairs: { [key: number]: number } = {};
+    data.forEach((item, index) => {
+      pairs[index] = index;  // Suponiendo que el índice izquierdo es igual al índice derecho
+    });
+    return pairs;
+  }
 
   selectLeftImage(index: number) {
     if (this.beforeImages[index].matched) return;
@@ -56,7 +69,7 @@ export class MatchImgsPage {
   checkMatch() {
     if (this.selectedLeftIndex !== null && this.selectedRightIndex !== null) {
       this.userPairs[this.selectedLeftIndex] = this.selectedRightIndex;
-  
+
       const leftDot = document.querySelectorAll('.left-dot')[
         this.selectedLeftIndex
       ] as HTMLElement;
@@ -66,11 +79,11 @@ export class MatchImgsPage {
       const contentRect = document
         .querySelector('ion-content')!
         .getBoundingClientRect();
-  
+
       if (leftDot && rightDot) {
         const leftRect = leftDot.getBoundingClientRect();
         const rightRect = rightDot.getBoundingClientRect();
-  
+
         const line = {
           x1: leftRect.left + leftRect.width / 2 - contentRect.left,
           y1: leftRect.top + leftRect.height / 2 - contentRect.top,
@@ -78,32 +91,30 @@ export class MatchImgsPage {
           y2: rightRect.top + rightRect.height / 2 - contentRect.top,
           color: this.getRandomColor(),
         };
-  
+
         this.lines.push(line);
       }
-  
+
       this.beforeImages[this.selectedLeftIndex].matched = true;
       this.afterImages[this.selectedRightIndex].matched = true;
       this.matchedPairs++;
-  
+
       this.selectedLeftIndex = null;
       this.selectedRightIndex = null;
-  
     }
   }
-  
+
   checkResults() {
     this.allCorrect = true;
-  
+
     for (const leftIndex in this.correctPairs) {
       if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
         this.allCorrect = false;
         break;
       }
     }
-  
+
     if (!this.allCorrect) {
-      // Si hay uniones incorrectas, reinicia las incorrectas
       this.resetIncorrectPairs();
     }
   }
@@ -122,7 +133,6 @@ export class MatchImgsPage {
   }
 
   resetIncorrectPairs() {
-    // Reiniciar las imágenes y las líneas incorrectas
     for (const leftIndex in this.userPairs) {
       if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
         this.beforeImages[leftIndex].matched = false;
@@ -130,14 +140,12 @@ export class MatchImgsPage {
         this.matchedPairs--;
       }
     }
-  
-    // Limpiar las líneas incorrectas
+
     this.lines = this.lines.filter((line, index) => {
       const leftIndex = Object.keys(this.userPairs)[index];
       return this.userPairs[Number(leftIndex)] === this.correctPairs[Number(leftIndex)];
     });
-  
-    // Reiniciar el estado de las selecciones
+
     this.userPairs = {};
     this.selectedLeftIndex = null;
     this.selectedRightIndex = null;
@@ -157,4 +165,3 @@ export class MatchImgsPage {
     }
   }
 }
-
