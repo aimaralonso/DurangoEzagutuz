@@ -63,7 +63,7 @@
     text-align: center;
     position: relative;
     width: 160px;
-    height: 175px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -71,8 +71,9 @@
 }
 
 .image-box img {
-    width: 100%;
-    height: auto;
+    width: 150px;
+    height: 125px;
+    object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
 }

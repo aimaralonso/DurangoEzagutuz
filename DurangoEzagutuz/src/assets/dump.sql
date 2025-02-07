@@ -90,17 +90,22 @@ VALUES
 -- Insertar datos en Match_pair
 INSERT OR IGNORE INTO Match_pair (id, name, img)
 VALUES
-(1, 'tart', '../../assets/images/tart.png'),
-(2, 'sagar', '../../assets/images/sagar.png'),
-(3, 'ardoa', '../../assets/images/ardoa.png'),
-(4, 'gazta', '../../assets/images/gazta.png'),
-(5, 'ogia', '../../assets/images/ogia.png');
+(1, 'Tartalo', '../../assets/images/Tartalo.png'),
+(2, 'Traganarrua', '../../assets/images/Traganarrua.png'),
+(3, 'Sugaar', '../../assets/images/Sugaar.png'),
+(4, 'Mari', '../../assets/images/Mari.png'),
+(5, 'Herensugea', '../../assets/images/Herensugea.png'),
+(6, 'Jentila', '../../assets/images/Jentila.png'),
+(7, 'Galtzagorri', '../../assets/images/Galtzagorri.png'),
+(8, 'Basajaun', '../../assets/images/Basajaun.png'),
+(9, 'Lamia', '../../assets/images/Lamia.png'),
+(10, 'Sorginak', '../../assets/images/Sorginak.png');
 
 -- Insertar datos en Progress
 INSERT OR IGNORE INTO Progress (location_id, completed)
 VALUES
-(1, 1),
+(1, 0),
 (2, 0),
-(3, 1),
+(3, 0),
 (4, 0),
-(5, 1);
+(5, 0);
