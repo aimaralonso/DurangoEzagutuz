@@ -1,48 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.page.html',
   styleUrls: ['./quiz.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterModule]
+  imports: [IonicModule, CommonModule, RouterModule],
 })
-export class QuizPage {
+export class QuizPage implements OnInit {
+  sentences: any[] = [];
+  userResponse: (number | null)[] = [];
+  showingAnswers: boolean = false;
 
-  // Get the sentences
-  sentences = [
-    {
-      sentence: 'El cielo es azul.',
-      img: 'assets/images/paso.png',
-      answer: 'egia',
-    },
-    {
-      sentence: 'Los perros pueden volar.',
-      img: 'assets/images/paso.png',
-      answer: 'gezurra',
-    },
-    {
-      sentence: 'El agua es incolora.',
-      img: 'assets/images/paso.png',
-      answer: 'egia',
-    },
-  ];
+  constructor(private router: Router, private databaseService: DatabaseService) {}
 
-  userResponse: (string | null)[] = new Array(this.sentences.length).fill(null); // Store the answers
-  showingAnswers: boolean = false; // Flag to show answers with tick/cross
-
-  constructor(private router: Router) {}
-
-  // Function to select the answer
-  selectAnswer(answer: string, index: number) {
-    this.userResponse[index] = answer; // Store the answer in userResponse array
+  ngOnInit() {
+    this.databaseService.dbState().subscribe((res) => {
+      if (res) {
+        this.databaseService.fetchQuiz().subscribe((data) => {
+          this.sentences = data;
+          this.userResponse = new Array(this.sentences.length).fill(null);
+        });
+      }
+    });
   }
 
-  // Function to check all answers
+  selectAnswer(answer: number, index: number) {
+    this.userResponse[index] = answer;
+  }
+
   checkAllAnswers() {
     if (!this.showingAnswers) {
       this.showingAnswers = true;
@@ -55,17 +46,15 @@ export class QuizPage {
     }
   }
 
-  // Function to check if answer is correct or not
   getAnswerStatus(index: number): 'success' | 'error' | null {
     if (this.userResponse[index] === null) {
-      return null; // If no answer selected, no status
+      return null;
     }
     return this.userResponse[index] === this.sentences[index].answer ? 'success' : 'error';
   }
 
-  // Function to check if exercise is completed
   exerciseCompleted(): boolean {
-    return this.userResponse.every((response) => response !== null); // Check if all answers are selected
+    return this.userResponse.every((response) => response !== null);
   }
 
   allAnswersCorrect(): boolean {

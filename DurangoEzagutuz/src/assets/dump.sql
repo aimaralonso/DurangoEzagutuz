@@ -72,11 +72,11 @@ VALUES
 -- Insertar datos en Quiz
 INSERT OR IGNORE INTO Quiz (id, sentence, img, answer)
 VALUES
-(1, 'Durangoko Azoka euskal kirolariekin solasean...', '../../assets/images/Quiz1.png', 0),
+(1, 'Durangoko Azoka euskal kirolariekin solasean ibiltzeko aukera paregabea da.', '../../assets/images/Quiz1.png', 0),
 (2, 'Lehen edizioa Gerediaga Elkarteak antolatu zuen.', '../../assets/images/Quiz2.png', 1),
-(3, 'Azokaren helburua nazioarteko liburugintza...', '../../assets/images/Quiz3.png', 0),
-(4, 'Elizpean antolatu ondoren...', '../../assets/images/Quiz4.png', 0),
-(5, 'Azoka nagusiaz gain...', '../../assets/images/Quiz5.png', 1);
+(3, 'Azokaren helburua nazioarteko liburugintza eta diskogintza ezagutzera ematea zen.', '../../assets/images/Quiz3.png', 0),
+(4, 'Elizpean antolatu ondoren, hainbat urtetan udaletxe plazan antolatu behar izan zuten azoka.', '../../assets/images/Quiz4.png', 0),
+(5, 'Azoka nagusiaz gain, inguruan beste hainbat gune ere antolatzen dira, besteak beste; saguganbara, irudienea edo eta eszenatokia.', '../../assets/images/Quiz5.png', 1);
 
 -- Insertar datos en Match_img
 INSERT OR IGNORE INTO Match_img (id, img_before, img_after)
