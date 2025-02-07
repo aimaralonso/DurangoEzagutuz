@@ -20,7 +20,6 @@
           <p>
             <strong>{{ selectedLocation?.name }}</strong><br />
             {{ selectedLocation?.description }}<br />
-            {{ selectedLocation?.explanation }}
           </p>
         </ng-container>
         <ng-template #noData>
@@ -36,6 +35,38 @@
         alt="Cartel"
         class="poster-image"
       />
+
+      <!-- Contenedor dinámico para video, audio o imagen -->
+      <div class="media-container">
+        <ng-container *ngIf="selectedLocation">
+          <!-- Si img no es "nulo" y es un video, mostrar video -->
+          <ng-container *ngIf="isVideo(selectedLocation.img); else checkAudio">
+            <video controls class="media-element">
+              <source [src]="selectedLocation.img" type="video/mp4" />
+              Tu navegador no soporta la reproducción de video.
+            </video>
+          </ng-container>
+
+          <!-- Si img es "nulo" o no es un video, verificar audio -->
+          <ng-template #checkAudio>
+            <ng-container *ngIf="selectedLocation.audio !== 'nulo'; else showImage">
+              <audio controls class="media-element">
+                <source [src]="selectedLocation.audio" type="audio/mpeg" />
+                Tu navegador no soporta la reproducción de audio.
+              </audio>
+            </ng-container>
+          </ng-template>
+
+          <!-- Si ambos img y audio son "nulo" o img no es un video, mostrar imagen -->
+          <ng-template #showImage>
+            <img
+              [src]="selectedLocation.img"
+              alt="Location Image"
+              class="media-element"
+            />
+          </ng-template>
+        </ng-container>
+      </div>
     </div>
 
     <!-- Botón -->

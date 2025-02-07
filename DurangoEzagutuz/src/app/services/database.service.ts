@@ -87,6 +87,48 @@ export class DatabaseService {
     return this.locationsList.asObservable();
   }
 
+  
+  // Nuevo método para obtener una ubicación específica por su id
+  async getLocationById(id: number): Promise<Location | null> {
+    try {
+      const res = await this.storage.executeSql(
+        'SELECT * FROM Locations WHERE id = ?',
+        [id]
+      );
+      if (res.rows.length > 0) {
+        const location = res.rows.item(0);
+        return {
+          id: location.id,
+          position: location.position,
+          name: location.name,
+          description: location.description,
+          explanation: location.explanation,
+          lat: location.lat,
+          lon: location.lon,
+          img: location.img,
+          audio: location.audio,
+          video: location.video,
+          time: location.time,
+          activity: location.activity,
+        };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('errorea getLocationById', error);
+      return null;
+    }
+  }
+
+  fetchLocationById(id: number): Observable<Location | null> {
+    const locationSubject = new BehaviorSubject<Location | null>(null);
+
+    this.getLocationById(id).then((location) => {
+      locationSubject.next(location);
+    });
+
+    return locationSubject.asObservable();
+  }
     async getQuiz() {
     try {
       const res = await this.storage.executeSql('SELECT * FROM Quiz', []);
@@ -132,6 +174,7 @@ export class DatabaseService {
 
   fetchMatchPairs(): Observable<any[]> {
     return this.matchPairsList.asObservable();
+
   }
 
   async getMatchImgs() {
