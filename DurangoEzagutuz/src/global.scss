@@ -44,3 +44,148 @@
   font-style: normal;
 }
 
+
+@import "./variables";
+
+// Mixins
+@mixin floating-animation($duration) {
+  animation: float $duration ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+// Global styles
+body {
+  margin: 0;
+  font-family: $font-body;
+}
+
+ion-content {
+  --background: #FFF9D6;
+}
+
+// Typography System
+.main-title {
+  font-size: 2.5rem;
+  color: $ui-black;
+  font-family: "Vasca", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  text-shadow: 0px 2px 4px rgba($ui-black, 0.2);
+  margin-top: 10vh;
+  z-index: 10;
+  position: relative;
+}
+
+// Dialog System
+.dialog-system {
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 10vh;
+
+  // Speech Bubble
+  .speech-bubble {
+    background: rgba($ui-white, 0.8);  // Fondo translúcido
+    border-radius: 20px;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+    margin-top: 5vh;
+    position: relative;  // Para permitir que la punta se posicione correctamente
+
+    // Agregar la punta del bocadillo
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -13px;  // Ajusta la altura de la punta
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;  // Hace la punta en el centro
+      border-right: 10px solid transparent;
+      border-top: 15px solid rgba($ui-white, 0.8);  // Color y forma de la punta
+    }
+  }
+
+  // Dialog Text
+  .dialog-text {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: $ui-black;
+  }
+
+  // Character Positioning
+  .frog-character {
+    width: 300px;
+    height: auto;
+  }
+}
+
+
+.action-button {
+  background: $button-bg;
+  border-radius: 34px;
+  border: 2px solid $button-stroke;
+  width: 200px;
+  height: 50px;
+  font-family: $font-main;
+  font-size: 1.25rem;
+  color: $ui-white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:disabled {
+    background: grey;
+    border: 2px solid darkgrey;
+    cursor: not-allowed;
+  }
+}
+
+.action-button__container {
+  margin-top: auto;
+  margin-bottom: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(10px 10px 15px $shadow-color);
+}
+
+.action-button {
+  background: $button-bg;
+  border-radius: 34px;
+  border: 2px solid $button-stroke;
+  width: 200px;
+  height: 50px;
+}
+
+.action-button:disabled {
+  background: grey;
+  cursor: not-allowed;
+}
+
+.action-button__label {
+  font-family: "Vasca", sans-serif;
+  font-size: 1.25rem;
+  color: $ui-white;
+}
+
