@@ -88,3 +88,16 @@
     width: 100%;
     object-fit: cover;
   }
+
+  .media-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .media-element {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+  }

@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common'; 
 import { Location } from '../classes/location';
+import { DatabaseService } from '../services/database.service';
+
 
 @Component({
   selector: 'app-description',
@@ -11,16 +13,34 @@ import { Location } from '../classes/location';
   styleUrls: ['./description.page.scss'],
   standalone: true,
   imports: [IonicModule, RouterModule, CommonModule],
-})
-export class DescriptionPage implements OnInit {
+})export class DescriptionPage implements OnInit {
   // Propiedad para almacenar la ubicación pasada desde MapPage
   selectedLocation: Location | null = null;
+  locationId: number | null = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private databaseService: DatabaseService) { }
 
   ngOnInit() {
     // Se recupera la ubicación enviada mediante history.state
-    this.selectedLocation = history.state.location;
-    console.log('Ubicación recibida:', this.selectedLocation);
+    this.locationId = history.state.location;
+
+    if (this.locationId !== null) {
+      this.getLocations();
+    }
+  }
+
+  getLocations() {
+    this.databaseService.dbState().subscribe((res) => {
+      if (res) {
+        if (this.locationId !== null) {
+          this.databaseService.fetchLocationById(this.locationId).subscribe(data => {this.selectedLocation = data;});
+        }
+      }
+    });
+  }
+
+  isVideo(filePath: string): boolean {
+    const videoExtensions = ['.mp4', '.webm', '.ogg'];
+    return videoExtensions.some(ext => filePath.endsWith(ext));
   }
 }
