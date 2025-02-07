@@ -47,17 +47,17 @@ CREATE TABLE IF NOT EXISTS Progress (
 INSERT OR IGNORE INTO Locations (id, position, name, description, explanation, lat, lon, img, audio, video, time, activity)
 VALUES 
 (1, 1, 'Landako Gunea', 
- 'joko honetan 5 galdera erantzun beharko dituzu...', NULL, 43.170978, -2.630629, 
+ 'joko honetan 5 galdera erantzun beharko dituzu, enuntziatu bakoitzaren azpian bi botoi izango dituzu bat zuzenerako eta bestea gezurrerako. Erantzun ondoren, zuzentzeko aukera izango duzu. Denak ondo erantzun arte, jokoa berriro egin beharko duzu.', NULL, 43.170978, -2.630629, 
  '../../assets/images/landakoGunea.jpeg', NULL, '../../assets/videos/landakoGunea.mp4', 90, 'Quiz'),
 
 (2, 2, 'Andra Mari Kalea', 
- 'joko honetan 5 irudi-pare elkartu beharko dituzu...', 
- '1937ko martxoaren 31n...', 43.167950, -2.631669, 
+ 'joko honetan 5 irudi-pare elkartu beharko dituzu; bi puntutan sakatzean, gezi bat agertuko da, biak elkartzen dituena. Denak batu ondoren, zuzentzeko aukera izango duzu. Denak ondo batu arte, gaizki daudenak berriro batu beharko dituzu.', 
+ '1937ko martxoaren 31n, goizeko 08:30ean Italiako tropek Durango bonbardatu zuten, Franco jeneralaren agindupean. Herria suntsituta geratu zen eta 336 pertsona hil ziren.', 43.167950, -2.631669, 
  '../../assets/images/AndraMariKalea.jpg', NULL, NULL, 90, 'Match_img'),
 
 (3, 3, 'Durangoko Udala', 
- 'joko honetan letra-zopa bat egin beharko duzu...', 
- '1765.urtetik ospatzen den ekitaldia...', 43.166891, -2.631891, 
+ 'joko honetan letra-zopa bat egin beharko duzu artopillen osagaien gainean. Jolasteko, hitz baten letrak banan-banan aukeratu behar dituzu. Denboran zehar 6 hitzak aurkitzen dituzunean irabaziko duzu.', 
+ '1765.urtetik ospatzen den ekitaldia.  Gaur egun udaletxeko arkupetan.  Madalenen antzeko opila behealdean arto alea duena.', 43.166891, -2.631891, 
  '../../assets/images/durangokoUdala.jpeg', '../../assets/audios/3Ariketa.mp3', NULL, 90, 'WordSearch'),
 
 (4, 4, 'Santa Anako Arkua', 
@@ -66,7 +66,7 @@ VALUES
  '../../assets/images/4Ariketa.png', NULL, NULL, 90, 'Puzzle'),
 
 (5, 5, 'Pinondo Plaza', 
- 'Joko honetan izenen bikoteak batu beharko dituzu...', NULL, 43.164911, -2.632466, 
+ 'Joko honetan izenen bikoteak batu beharko dituzu izaki mitologikoen irudiekin, begiratu bideoari ezer baino lehen bakoitza ezagutzeko.', NULL, 43.164911, -2.632466, 
  '../../assets/images/5Ariketa.jpeg', NULL, '../../assets/videos/5Ariketa.mp4', 90, 'MatchPairs');
 
 -- Insertar datos en Quiz
