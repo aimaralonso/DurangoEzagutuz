@@ -13,22 +13,22 @@
 
     <!-- Show selected answer text if it's chosen, without tick or cross -->
     <div *ngIf="userResponse[i] !== null && !showingAnswers" class="selected-answer">
-      <strong>{{ userResponse[i] }}</strong>
+      <strong>{{ userResponse[i] === 1 ? 'Egia' : 'Gezurra' }}</strong>
     </div>
 
     <!-- Show selected answer with icon when showing answers -->
     <div *ngIf="showingAnswers" class="selected-answer">
-      <strong>{{ userResponse[i] }}</strong>
+      <strong>{{ userResponse[i] === 1 ? 'Egia' : 'Gezurra' }}</strong>
       <ion-icon *ngIf="getAnswerStatus(i) === 'success'" name="checkmark-circle" color="success"></ion-icon>
       <ion-icon *ngIf="getAnswerStatus(i) === 'error'" name="close-circle" color="danger"></ion-icon>
     </div>
 
     <!-- Buttons to select the answer if not selected yet -->
     <div class="buttons-container" *ngIf="!showingAnswers && userResponse[i] === null">
-      <ion-button expand="full" color="success" (click)="selectAnswer('egia', i)">
+      <ion-button expand="full" color="success" (click)="selectAnswer(1, i)">
         Egia
       </ion-button>
-      <ion-button expand="full" color="danger" (click)="selectAnswer('gezurra', i)">
+      <ion-button expand="full" color="danger" (click)="selectAnswer(0, i)">
         Gezurra
       </ion-button>
     </div>

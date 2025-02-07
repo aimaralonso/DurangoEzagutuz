@@ -11,6 +11,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 export class DatabaseService {
   private storage!: SQLiteObject;
   locationsList = new BehaviorSubject<Location[]>([]);
+  quizList = new BehaviorSubject<any[]>([]);
+  matchPairsList = new BehaviorSubject<any[]>([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(
     private platform: Platform,
@@ -43,6 +45,8 @@ export class DatabaseService {
           .importSqlToDb(this.storage, data)
           .then((_) => {
             this.getLocations();
+            this.getQuiz();
+            this.getMatchPairs();
             this.isDbReady.next(true);
           })
           .catch((error) => console.error(error));
@@ -81,6 +85,7 @@ export class DatabaseService {
     return this.locationsList.asObservable();
   }
 
+  
   // Nuevo método para obtener una ubicación específica por su id
   async getLocationById(id: number): Promise<Location | null> {
     try {
@@ -113,7 +118,6 @@ export class DatabaseService {
     }
   }
 
-  // Nuevo método para devolver la ubicación específica como un Observable
   fetchLocationById(id: number): Observable<Location | null> {
     const locationSubject = new BehaviorSubject<Location | null>(null);
 
@@ -122,5 +126,52 @@ export class DatabaseService {
     });
 
     return locationSubject.asObservable();
+  }
+    async getQuiz() {
+    try {
+      const res = await this.storage.executeSql('SELECT * FROM Quiz', []);
+      let items: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            sentence: res.rows.item(i).sentence,
+            img: res.rows.item(i).img,
+            answer: res.rows.item(i).answer,
+          });
+        }
+      }
+      this.quizList.next(items);
+    } catch (error) {
+      console.error('Error en getQuiz', error);
+    }
+  }
+
+  fetchQuiz(): Observable<any[]> {
+    return this.quizList.asObservable();
+  }
+
+  async getMatchPairs() {
+    try {
+      const res = await this.storage.executeSql('SELECT * FROM Match_pair', []);
+      let items: any[] = [];
+      if (res.rows.length > 0) {
+        for (var i = 0; i < res.rows.length; i++) {
+          items.push({
+            id: res.rows.item(i).id,
+            name: res.rows.item(i).name,
+            image: res.rows.item(i).img,
+          });
+        }
+      }
+      this.matchPairsList.next(items);
+    } catch (error) {
+      console.error('Error en getMatchPairs', error);
+    }
+  }
+
+  fetchMatchPairs(): Observable<any[]> {
+    return this.matchPairsList.asObservable();
+
   }
 }
