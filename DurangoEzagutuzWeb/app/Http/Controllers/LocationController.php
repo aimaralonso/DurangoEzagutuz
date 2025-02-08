@@ -34,7 +34,7 @@ class LocationController extends Controller
                 'description' => 'required|string|max:255',
                 'explanation' => 'required|string|max:255',
                 'lat' => 'required|numeric',
-                'long' => 'required|numeric',
+                'lon' => 'required|numeric', // Cambiado de 'long' a 'lon' para coincidir con la base de datos
                 'img' => 'required|string|max:255',
                 'audio' => 'nullable|string|max:255',
                 'video' => 'nullable|string|max:255',

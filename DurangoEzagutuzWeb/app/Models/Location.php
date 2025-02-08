@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    /** @use HasFactory<\Database\Factories\LocationFactory> */
     use HasFactory;
+
+    protected $table = 'Locations'; // Nombre de la tabla en la base de datos
 
     protected $fillable = [
         'position',
@@ -16,7 +17,7 @@ class Location extends Model
         'description',
         'explanation',
         'lat',
-        'long',
+        'lon', // Cambiado de 'long' a 'lon' para coincidir con la base de datos
         'img',
         'audio',
         'video',

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match_img extends Model
 {
-    /** @use HasFactory<\Database\Factories\MatchImgFactory> */
     use HasFactory;
+
+    protected $table = 'Match_img'; // Nombre de la tabla en la base de datos
 
     protected $fillable = [
         'img_before',

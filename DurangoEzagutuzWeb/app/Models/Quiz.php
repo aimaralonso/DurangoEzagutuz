@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
-    /** @use HasFactory<\Database\Factories\QuizFactory> */
     use HasFactory;
+
+    protected $table = 'Quiz'; // Nombre de la tabla en la base de datos
 
     protected $fillable = [
         'sentence',

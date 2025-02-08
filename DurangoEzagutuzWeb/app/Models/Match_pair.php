@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match_pair extends Model
 {
-    /** @use HasFactory<\Database\Factories\MatchPairFactory> */
     use HasFactory;
+
+    protected $table = 'Match_pair'; // Nombre de la tabla en la base de datos
 
     protected $fillable = [
         'name',
