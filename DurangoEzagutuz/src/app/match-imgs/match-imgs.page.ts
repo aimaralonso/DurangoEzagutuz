@@ -39,17 +39,17 @@ export class MatchImgsPage implements OnInit {
         matched: false,
       }));
 
-      // Emparejar las imágenes correctamente (debes definir los pares correctos en función de los datos)
-      // Suponiendo que los elementos de la base de datos tienen una relación de índice a índice
+      // Definir los pares correctos basados en los datos de la base de datos
       this.correctPairs = this.createCorrectPairs(data);
     });
   }
 
   createCorrectPairs(data: any[]): { [key: number]: number } {
-    // Crea los pares correctos basados en los datos de la base de datos
+    // Aquí puedes definir la lógica para crear los pares correctos
+    // Por ejemplo, si los datos tienen un campo que indica el emparejamiento correcto
     let pairs: { [key: number]: number } = {};
     data.forEach((item, index) => {
-      pairs[index] = index;  // Suponiendo que el índice izquierdo es igual al índice derecho
+      pairs[index] = item.correct_pair_index;  // Suponiendo que `correct_pair_index` es el índice correcto en `afterImages`
     });
     return pairs;
   }
