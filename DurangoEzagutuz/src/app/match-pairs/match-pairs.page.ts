@@ -19,11 +19,14 @@ export  class MatchPairsPage implements OnInit {
   selectedNameIndex: number | null = null;
   buttonLabel: string = 'ZUZENDU';
   correctAssignments: { [key: number]: string } = {};
+  locationId: number | null = null;
 
   constructor(private router: Router, private dbService: DatabaseService) {}
 
   ngOnInit() {
     this.loadMatchPairsData();
+
+    this.locationId = history.state.location;
   }
 
   loadMatchPairsData() {
@@ -66,7 +69,7 @@ export  class MatchPairsPage implements OnInit {
     } else if (this.buttonLabel === 'ERREPIKATU') {
       this.removeIncorrectAssignments();
     } else {
-      this.router.navigate(['/congrats']);
+      this.router.navigate(['/congrats'],{state: { location: this.locationId },});
     }
   }
 

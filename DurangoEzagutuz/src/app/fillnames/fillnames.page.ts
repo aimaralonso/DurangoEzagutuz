@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./fillnames.page.scss'],
   imports: [IonicModule, RouterModule, CommonModule],
 })
-export class FillnamesPage {
+export class FillnamesPage implements OnInit {
   words: (string | null)[] = ['ARMARIARA', 'BEGIRATOKIA', 'ARKUA', 'BUPULAK'];
   assignedWords: { [key: number]: string } = {};
   correctAnswers: { [key: number]: string } = {
@@ -26,7 +26,7 @@ export class FillnamesPage {
     { top: '30%', left: '70%' }, // Bupulak
     { top: '65%', left: '35%' }, // Arkua
   ];
-
+  locationId: number | null = null;
   selectedWord: string | null = null;
   selectedWordIndex: number | null = null;
   full: boolean = false;
@@ -36,6 +36,12 @@ export class FillnamesPage {
     private router: Router,
     private alertController: AlertController
   ) {}
+
+
+  ngOnInit() {
+
+    this.locationId = history.state.location;
+  }
 
   selectWord(index: number) {
     const currentElement = document.getElementById(`word-${index}`);
@@ -105,7 +111,7 @@ export class FillnamesPage {
     if (this.buttonLabel === 'ERREPIKATU') {
       this.removeIncorrectWords();
     } else if (this.buttonLabel === 'AMAITU') {
-      this.router.navigate(['/congrats']);
+      this.router.navigate(['/congrats'],{state: { location: this.locationId },});
     }
   }
 

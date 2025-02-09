@@ -19,12 +19,14 @@ export class WordsearchComponent implements OnInit {
   currentSelection: string = '';
   foundLetters: { row: number; col: number }[] = [];
   wordsCount: number = 0;
+  locationId: number | null = null;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     this.generateGrid();
     this.placeWords();
+    this.locationId = history.state.location;
   }
 
   generateGrid() {
@@ -124,6 +126,6 @@ export class WordsearchComponent implements OnInit {
   }
 
   goCongrats(){
-    this.router.navigate(['/congrats']);
+    this.router.navigate(['/congrats'],{state: { location: this.locationId },});
   }
 }

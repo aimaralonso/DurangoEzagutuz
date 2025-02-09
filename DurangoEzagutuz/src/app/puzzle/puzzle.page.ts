@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule,  AlertController} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,9 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./puzzle.page.scss'],
   imports: [IonicModule, RouterModule, CommonModule],
 })
-export class PuzzlePage {
+export class PuzzlePage  implements OnInit {
+  locationId: number | null = null;
   
   constructor(private router: Router, private alertController: AlertController) {}
+  ngOnInit() {
+
+    this.locationId = history.state.location;
+  }
 
   async navigateToNewPage() {
     const alert = await this.alertController.create({
@@ -26,7 +31,7 @@ export class PuzzlePage {
         {
           text: 'BAI',
           handler: () => {
-            this.router.navigate(['/fillnames']);
+            this.router.navigate(['/fillnames'],{state: { location: this.locationId },});
           }
         }
       ]

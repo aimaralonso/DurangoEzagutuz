@@ -199,4 +199,19 @@ export class DatabaseService {
   fetchMatchImgs(): Observable<any[]> {
     return this.matchImgsList.asObservable();
   }
+
+  async updateProgress(locationId: number, completed: number): Promise<void> {
+    try {
+      const query = `
+        UPDATE Progress
+        SET completed = ?
+        WHERE location_id = ?;
+      `;
+      await this.storage.executeSql(query, [completed, locationId]);
+      console.log('Progress updated successfully');
+    } catch (error) {
+      console.error('Error updating progress', error);
+      throw error;
+    }
+  }
 }

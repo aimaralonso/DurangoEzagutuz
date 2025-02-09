@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
   // Propiedad para almacenar la ubicación seleccionada y mostrar la tarjeta
   selectedLocation: Location | null = null;
   selectedLocationId: number | null = null;
-  currentStop: number = 5;
+  currentStop: number = 2;
   latitude: number = 0;
   longitude: number = 0;
   distance: number = 0;
@@ -208,4 +208,10 @@ export class MapPage implements OnInit {
       state: { location: this.selectedLocationId },
     });
   }
+
+  updateCurrentStop() {
+    this.currentStop += 1;
+    document.documentElement.style.setProperty('--current-stop', this.currentStop.toString());
+  }
+  
 }

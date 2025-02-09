@@ -21,6 +21,7 @@ export class MatchImgsPage implements OnInit {
   matchedPairs = 0;
   allCorrect: boolean = false;
   constructor(private router: Router, private databaseService: DatabaseService) {}
+  locationId: number | null = null;
   ngOnInit() {
     // Datos hardcodeados (simulando los datos de la base de datos)
     const hardcodedData = [
@@ -40,6 +41,8 @@ export class MatchImgsPage implements OnInit {
     }));
     // Definir los pares correctos basados en los datos hardcodeados
     this.correctPairs = this.createCorrectPairs(hardcodedData);
+
+    this.locationId = history.state.location;
   }
   createCorrectPairs(data: any[]): { [key: number]: number } {
     let pairs: { [key: number]: number } = {};
@@ -128,7 +131,7 @@ export class MatchImgsPage implements OnInit {
     }
   }
   navigateToCongrats() {
-    this.router.navigate(['/congrats']);
+    this.router.navigate(['/congrats'],{state: { location: this.locationId },});
   }
   
   handleButtonClick() {

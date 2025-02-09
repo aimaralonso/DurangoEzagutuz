@@ -16,6 +16,7 @@ export class QuizPage implements OnInit {
   sentences: any[] = [];
   userResponse: (number | null)[] = [];
   showingAnswers: boolean = false;
+  locationId: number | null = null;
 
   constructor(private router: Router, private databaseService: DatabaseService) {}
 
@@ -28,6 +29,8 @@ export class QuizPage implements OnInit {
         });
       }
     });
+
+    this.locationId = history.state.location;
   }
 
   selectAnswer(answer: number, index: number) {
@@ -39,7 +42,7 @@ export class QuizPage implements OnInit {
       this.showingAnswers = true;
     } else {
       if (this.allAnswersCorrect()) {
-        this.router.navigate(['/congrats']);
+        this.router.navigate(['/congrats'],{state: { location: this.locationId },});
       } else {
         window.location.reload();
       }
