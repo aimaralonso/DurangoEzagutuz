@@ -168,6 +168,8 @@ ion-content {
   justify-content: center;
   align-items: center;
   filter: drop-shadow(10px 10px 15px $shadow-color);
+  position: relative;
+  z-index: 20;
 }
 
 .action-button {

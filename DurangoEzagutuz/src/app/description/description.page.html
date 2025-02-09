@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Botón de volver atrás -->
     <div class="back-button-container">
-      <button routerLink="/description" class="back-button">
+      <button routerLink="/map" class="back-button">
         <img src="../../assets/images/back.png" alt="Back Icon" />
       </button>
     </div>
@@ -40,24 +40,24 @@
       <div class="media-container">
         <ng-container *ngIf="selectedLocation">
           <!-- Si img no es "nulo" y es un video, mostrar video -->
-          <ng-container *ngIf="isVideo(selectedLocation.img); else checkAudio">
+          <ng-container *ngIf="isVideo(selectedLocation.video); else checkAudio">
             <video controls class="media-element">
-              <source [src]="selectedLocation.img" type="video/mp4" />
+              <source [src]="selectedLocation.video" type="video/mp4" />
               Tu navegador no soporta la reproducción de video.
             </video>
           </ng-container>
-
-          <!-- Si img es "nulo" o no es un video, verificar audio -->
+      
+          <!-- Si img no es un video pero es un audio, mostrar audio -->
           <ng-template #checkAudio>
-            <ng-container *ngIf="selectedLocation.audio !== 'nulo'; else showImage">
+            <ng-container *ngIf="isAudio(selectedLocation.audio); else showImage">
               <audio controls class="media-element">
                 <source [src]="selectedLocation.audio" type="audio/mpeg" />
                 Tu navegador no soporta la reproducción de audio.
               </audio>
             </ng-container>
           </ng-template>
-
-          <!-- Si ambos img y audio son "nulo" o img no es un video, mostrar imagen -->
+      
+          <!-- Si img no es un video ni un audio, mostrar imagen -->
           <ng-template #showImage>
             <img
               [src]="selectedLocation.img"
@@ -71,7 +71,7 @@
 
     <!-- Botón -->
     <div class="action-button__container">
-      <button routerLink="/explanation" class="action-button">
+      <button (click)="goToExplanation()" class="action-button">
         <span class="action-button__label">JOLASTU!</span>
       </button>
     </div>
@@ -79,6 +79,7 @@
       src="../../assets/images/cartelPata.png"
       alt="CartelPata"
       class="poster-pata"
+      
     />
   </div>
 </ion-content>

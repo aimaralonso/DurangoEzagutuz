@@ -40,7 +40,25 @@ import { DatabaseService } from '../services/database.service';
   }
 
   isVideo(filePath: string): boolean {
+    console.log(filePath);
+    console.log(this.selectedLocation?.video);
     const videoExtensions = ['.mp4', '.webm', '.ogg'];
-    return videoExtensions.some(ext => filePath.endsWith(ext));
+    const lowerCaseFilePath = filePath.toLowerCase();
+    return videoExtensions.some(ext => lowerCaseFilePath.endsWith(ext));
   }
+  
+
+  isAudio(filePath: string): boolean {
+    console.log(filePath);
+    console.log(this.selectedLocation?.audio);
+    const audioExtensions = ['.mp3', '.wav', '.ogg', '.m4a'];
+    return audioExtensions.some(ext => filePath.toLowerCase().endsWith(ext));
+  }
+
+  goToExplanation(): void {
+    this.router.navigate(['/explanation'], {
+      state: { location: this.locationId },
+    });
+  }
+  
 }
