@@ -1,12 +1,8 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Explanation</ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content class="ion-padding">
-  <h1>Descripción</h1>
-  <ion-button  routerLink="/congrats">Ir a Congrats</ion-button>
+  <p>{{selectedLocation?.explanation}}</p>
+  <div class="action-button__container">
+    <button (click)="goToGame()" class="action-button">
+      <span class="action-button__label">JOLASTU!</span>
+    </button>
+  </div>
 </ion-content>

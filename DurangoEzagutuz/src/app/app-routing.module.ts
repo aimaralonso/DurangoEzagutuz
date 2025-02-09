@@ -27,11 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('./quiz/quiz.module').then( m => m.QuizPageModule)
   },
   {
-    path: 'match-imgs',
+    path: 'match_img',
     loadChildren: () => import('./match-imgs/match-imgs.module').then( m => m.MatchImgsPageModule)
   },
   {
-    path: 'match-pairs',
+    path: 'matchpairs',
     loadChildren: () => import('./match-pairs/match-pairs.module').then( m => m.MatchPairsPageModule)
   },
   {
@@ -43,7 +43,7 @@ const routes: Routes = [
     loadChildren: () => import('./fillnames/fillnames.module').then( m => m.FillnamesPageModule)
   },
   {
-    path: 'word-search',
+    path: 'wordsearch',
     loadComponent: () => import('./word-search/word-search.page').then(m => m.WordSearchPage),
   },
 
