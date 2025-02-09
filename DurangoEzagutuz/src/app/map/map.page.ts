@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
   // Propiedad para almacenar la ubicación seleccionada y mostrar la tarjeta
   selectedLocation: Location | null = null;
   selectedLocationId: number | null = null;
-  currentStop: number = 4;
+  currentStop: number = 3;
   latitude: number = 0;
   longitude: number = 0;
   distance: number = 0;
@@ -117,6 +117,9 @@ export class MapPage implements OnInit {
   openCard(id: number): void {
     this.selectedLocationId = id;
     this.selectedLocation = this.locations.find((loc) => loc.id === id) || null;
+
+    alert(this.selectedLocationId.toString() + (this.selectedLocation?.id ?? '') + id.toString());
+    alert(this.locations.find((loc) => loc.id === id)?.id);
   }
 
   // Cierra la tarjeta
