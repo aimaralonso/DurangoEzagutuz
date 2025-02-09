@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-
 @Component({
   selector: 'app-match-imgs',
   standalone: true,
@@ -21,104 +20,72 @@ export class MatchImgsPage implements OnInit {
   selectedRightIndex: number | null = null;
   matchedPairs = 0;
   allCorrect: boolean = false;
-
-  constructor(
-    private router: Router,
-    private databaseService: DatabaseService
-  ) {}
-
+  constructor(private router: Router, private databaseService: DatabaseService) {}
   ngOnInit() {
-    // Cargar las imágenes de la base de datos
-    this.databaseService.fetchMatchImgs().subscribe((data: any[]) => {
-      this.beforeImages = data.map(item => ({
-        src: item.img_before,
-        matched: false,
-      }));
-      this.afterImages = data.map(item => ({
-        src: item.img_after,
-        matched: false,
-      }));
-
-      // Definir los pares correctos basados en los datos de la base de datos
-      this.correctPairs = this.createCorrectPairs(data);
-    });
+    // Datos hardcodeados (simulando los datos de la base de datos)
+    const hardcodedData = [
+      { id: 1, img_before: 'assets/images/Before1.png', img_after: 'assets/images/After1.png' },
+      { id: 2, img_before: 'assets/images/Before2.png', img_after: 'assets/images/After2.png' },
+      { id: 3, img_before: 'assets/images/Before3.png', img_after: 'assets/images/After3.png' },
+      { id: 4, img_before: 'assets/images/Before4.png', img_after: 'assets/images/After4.png' },
+      { id: 5, img_before: 'assets/images/Before5.png', img_after: 'assets/images/After5.png' },
+    ];
+    this.beforeImages = hardcodedData.map(item => ({
+      src: item.img_before,
+      matched: false,
+    }));
+    this.afterImages = hardcodedData.map(item => ({
+      src: item.img_after,
+      matched: false,
+    }));
+    // Definir los pares correctos basados en los datos hardcodeados
+    this.correctPairs = this.createCorrectPairs(hardcodedData);
   }
-
   createCorrectPairs(data: any[]): { [key: number]: number } {
-    // Aquí puedes definir la lógica para crear los pares correctos
-    // Por ejemplo, si los datos tienen un campo que indica el emparejamiento correcto
     let pairs: { [key: number]: number } = {};
-    data.forEach((item, index) => {
-      pairs[index] = item.correct_pair_index;  // Suponiendo que `correct_pair_index` es el índice correcto en `afterImages`
+    data.forEach((_, index) => {
+      pairs[index] = index; // Cada imagen antes coincide con la misma posición después
     });
     return pairs;
   }
-
   selectLeftImage(index: number) {
     if (this.beforeImages[index].matched) return;
     this.selectedLeftIndex = index;
     this.checkMatch();
   }
-
   selectRightImage(index: number) {
     if (this.afterImages[index].matched) return;
     this.selectedRightIndex = index;
     this.checkMatch();
   }
-
   checkMatch() {
     if (this.selectedLeftIndex !== null && this.selectedRightIndex !== null) {
       this.userPairs[this.selectedLeftIndex] = this.selectedRightIndex;
-
-      const leftDot = document.querySelectorAll('.left-dot')[
-        this.selectedLeftIndex
-      ] as HTMLElement;
-      const rightDot = document.querySelectorAll('.right-dot')[
-        this.selectedRightIndex
-      ] as HTMLElement;
-      const contentRect = document
-        .querySelector('ion-content')!
-        .getBoundingClientRect();
-
+      const leftDot = document.querySelectorAll('.left-dot')[this.selectedLeftIndex] as HTMLElement;
+      const rightDot = document.querySelectorAll('.right-dot')[this.selectedRightIndex] as HTMLElement;
+      const contentRect = document.querySelector('ion-content')!.getBoundingClientRect();
       if (leftDot && rightDot) {
         const leftRect = leftDot.getBoundingClientRect();
         const rightRect = rightDot.getBoundingClientRect();
-
         const line = {
           x1: leftRect.left + leftRect.width / 2 - contentRect.left,
           y1: leftRect.top + leftRect.height / 2 - contentRect.top,
           x2: rightRect.left + rightRect.width / 2 - contentRect.left,
           y2: rightRect.top + rightRect.height / 2 - contentRect.top,
           color: this.getRandomColor(),
+          pair: { left: this.selectedLeftIndex, right: this.selectedRightIndex }, // Asociar la línea con el par
+          isCorrect: this.correctPairs[this.selectedLeftIndex] === this.selectedRightIndex, // Marcar si es correcto
         };
-
         this.lines.push(line);
       }
-
       this.beforeImages[this.selectedLeftIndex].matched = true;
       this.afterImages[this.selectedRightIndex].matched = true;
       this.matchedPairs++;
-
+      this.updateAllCorrectState(); // Actualizar el estado de allCorrect
       this.selectedLeftIndex = null;
       this.selectedRightIndex = null;
     }
   }
-
-  checkResults() {
-    this.allCorrect = true;
-
-    for (const leftIndex in this.correctPairs) {
-      if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
-        this.allCorrect = false;
-        break;
-      }
-    }
-
-    if (!this.allCorrect) {
-      this.resetIncorrectPairs();
-    }
-  }
-
   getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -127,34 +94,43 @@ export class MatchImgsPage implements OnInit {
     }
     return color;
   }
-
   exerciseCompleted(): boolean {
     return this.matchedPairs === Object.keys(this.correctPairs).length;
   }
-
   resetIncorrectPairs() {
+    // Filtrar solo las líneas correctas
+    this.lines = this.lines.filter(line => line.isCorrect);
+    // Reiniciar pares incorrectos
     for (const leftIndex in this.userPairs) {
-      if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
+      const rightIndex = this.userPairs[leftIndex];
+      if (this.correctPairs[leftIndex] !== rightIndex) {
         this.beforeImages[leftIndex].matched = false;
-        this.afterImages[this.userPairs[leftIndex]].matched = false;
+        this.afterImages[rightIndex].matched = false;
         this.matchedPairs--;
+        delete this.userPairs[leftIndex]; // Eliminar el par incorrecto de userPairs
       }
     }
-
-    this.lines = this.lines.filter((line, index) => {
-      const leftIndex = Object.keys(this.userPairs)[index];
-      return this.userPairs[Number(leftIndex)] === this.correctPairs[Number(leftIndex)];
-    });
-
-    this.userPairs = {};
-    this.selectedLeftIndex = null;
-    this.selectedRightIndex = null;
   }
-
+  updateAllCorrectState() {
+    this.allCorrect = true;
+    // Verificar si todos los pares son correctos
+    for (const leftIndex in this.correctPairs) {
+      if (this.userPairs[leftIndex] !== this.correctPairs[leftIndex]) {
+        this.allCorrect = false;
+        break;
+      }
+    }
+  }
+  checkResults() {
+    this.updateAllCorrectState(); // Actualizar el estado de allCorrect
+    if (!this.allCorrect) {
+      this.resetIncorrectPairs(); // Reiniciar pares incorrectos si hay errores
+    }
+  }
   navigateToCongrats() {
     this.router.navigate(['/congrats']);
   }
-
+  
   handleButtonClick() {
     if (this.exerciseCompleted()) {
       if (!this.allCorrect) {
@@ -164,4 +140,4 @@ export class MatchImgsPage implements OnInit {
       }
     }
   }
-}
+} 
