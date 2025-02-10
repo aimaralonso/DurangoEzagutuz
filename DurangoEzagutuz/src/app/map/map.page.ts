@@ -30,6 +30,8 @@ export class MapPage implements OnInit {
   currentLocation: Location = this.locations[this.currentStop - 1];
   useGPS: boolean = true;
   private watchId: string | null = null;
+  playAll: boolean = false;
+
   constructor(
     private databaseService: DatabaseService,
     private cdr: ChangeDetectorRef,
@@ -216,15 +218,17 @@ export class MapPage implements OnInit {
     this.databaseService
       .findBiggestLocationIdWithProgressOne()
       .then((locationId) => {
-
         alert(locationId);
 
         if (locationId !== null) {
-          this.currentStop = locationId + 1;
+          if (locationId === 5) {
+            this.playAll = true;
+          } else {
+            this.currentStop = locationId + 1;
+          }
         } else {
           this.currentStop = 1;
         }
-
 
         this.nextLevel();
       });

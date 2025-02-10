@@ -134,7 +134,7 @@
           <ion-card-content>
             <img [src]="selectedLocation.img" alt="{{ selectedLocation.name }}" class="custom-card-image" />
             <div class="action-button__container">
-              <button (click)="goToDescription()" class="action-button" [disabled]="selectedLocationId !== currentStop" > <!--|| isDistanceWithinRange===false-->
+              <button (click)="goToDescription()" class="action-button" [disabled]="selectedLocationId !== currentStop || playAll === false"  > <!--|| isDistanceWithinRange===false-->
                 <span class="action-button__label">JOLASTU!</span>
               </button>
             </div>
