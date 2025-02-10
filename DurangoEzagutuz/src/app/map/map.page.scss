@@ -1,19 +1,5 @@
+@import "../../global.scss";
 @import "stops";
-$background-color: #fff9d6;
-$dialog-color: #caf49d;
-$design-width: 100vw;
-$design-height: 100vh;
-$primary-gradient: linear-gradient(
-  180deg,
-  #1281ff 0%,
-  #6ecf9f 75%,
-  #caf49d 100%
-);
-$ui-white: #ffffff;
-$ui-black: #000000;
-$button-bg: #38a57f;
-$button-stroke: #257458;
-$shadow-color: rgba(0, 0, 0, 0.25);
 
 .container {
   width: 100%;
@@ -28,14 +14,6 @@ $shadow-color: rgba(0, 0, 0, 0.25);
     flex-direction: row;
     align-items: center;
     padding-top: 5%;
-
-    button {
-      background-color: $background-color;
-      width: 50px;
-      height: auto;
-      align-self: flex-start;
-      margin-left: 5px;
-    }
 
     .frog-character {
       width: auto;
@@ -266,33 +244,5 @@ $shadow-color: rgba(0, 0, 0, 0.25);
       p {
         display: none;
       }
-    }
-
-    .action-button__container {
-      margin-top: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      filter: drop-shadow(10px 10px 15px rgba(0, 0, 0, 0.25));
-    }
-
-    .action-button {
-      background: #38a57f;
-      border-radius: 34px;
-      border: 2px solid #257458;
-      width: 200px;
-      height: 50px;
-    }
-
-    .action-button:disabled {
-      background: grey;
-      border: 2px solid darkgrey;
-      cursor: not-allowed;
-    }
-
-    .action-button__label {
-      font-family: "Vasca", sans-serif;
-      font-size: 1.25rem;
-      color: #ffffff;
     }
 }

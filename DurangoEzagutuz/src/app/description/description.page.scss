@@ -12,21 +12,6 @@
   overflow: hidden; /* Asegura que no haya scroll */
 }
 
-.back-button-container {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 20;
-}
-
-.back-button {
-  background-color: transparent;
-  border: none;
-  width: 50px;
-  height: auto;
-  cursor: pointer;
-}
-
 .frog-speech {
   display: flex;
   align-items: center;
@@ -119,8 +104,7 @@
 }
 
 .action-button__container {
-  margin-top: 0px;
-  margin-bottom: 200px;
   position: relative;
-  z-index: 10; /* Asegura que esté por encima del póster */
+  z-index: 10;
+  margin-top: -40px;  // Ajusta este valor según lo que necesites (puedes probar con más o menos)
 }
