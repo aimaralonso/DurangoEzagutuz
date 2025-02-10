@@ -87,7 +87,6 @@ export class DatabaseService {
     return this.locationsList.asObservable();
   }
 
-  
   // Nuevo método para obtener una ubicación específica por su id
   async getLocationById(id: number): Promise<Location | null> {
     try {
@@ -129,7 +128,7 @@ export class DatabaseService {
 
     return locationSubject.asObservable();
   }
-    async getQuiz() {
+  async getQuiz() {
     try {
       const res = await this.storage.executeSql('SELECT * FROM Quiz', []);
       let items: any[] = [];
@@ -174,7 +173,6 @@ export class DatabaseService {
 
   fetchMatchPairs(): Observable<any[]> {
     return this.matchPairsList.asObservable();
-
   }
 
   async getMatchImgs() {
@@ -212,6 +210,28 @@ export class DatabaseService {
     } catch (error) {
       console.error('Error updating progress', error);
       throw error;
+    }
+  }
+
+  async findBiggestLocationIdWithProgressOne(): Promise<number | null> {
+    try {
+      const query = `
+        SELECT location_id
+        FROM Progress
+        WHERE completed = 1
+        ORDER BY location_id DESC
+        LIMIT 1;
+      `;
+      const res = await this.storage.executeSql(query, []);
+      alert(res);
+      if (res.rows.length > 0) {
+        return res.rows.item(0).location_id;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error en findSmallestLocationIdWithProgressOne', error);
+      return null;
     }
   }
 }

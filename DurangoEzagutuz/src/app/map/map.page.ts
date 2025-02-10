@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
 import { Location } from '../classes/location';
 import { Geolocation } from '@capacitor/geolocation';
+import { ViewWillEnter } from '@ionic/angular';
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
@@ -16,21 +17,32 @@ import { Geolocation } from '@capacitor/geolocation';
 export class MapPage implements OnInit {
   // Lista con 5 objetos de la clase AppModels.Location (se asignan id, name e img)
   locations: Location[] = [];
-  speechBubbleText: string ='Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko';
+  speechBubbleText: string =
+    'Gerturatu <b>Durangoko Udalera </b>jolastu ahal izateko';
   // Propiedad para almacenar la ubicación seleccionada y mostrar la tarjeta
   selectedLocation: Location | null = null;
   selectedLocationId: number | null = null;
-  currentStop: number = 2;
+  currentStop: number = 1;
   latitude: number = 0;
   longitude: number = 0;
   distance: number = 0;
   isDistanceWithinRange: boolean = false;
-  currentLocation: Location = this.locations[this.currentStop-1];
+  currentLocation: Location = this.locations[this.currentStop - 1];
   useGPS: boolean = true;
-  private watchId: string | null = null; // Añadir watchId para controlar la geolocalización
-  constructor(private databaseService: DatabaseService,private cdr: ChangeDetectorRef, private router: Router) {
-     this.startLocationUpdates();
+  private watchId: string | null = null;
+  constructor(
+    private databaseService: DatabaseService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {
+    this.startLocationUpdates();
+    //
   }
+
+  ionViewWillEnter() {
+    this.updateCurrentStop();
+  }
+
   getLocations(): void {
     this.databaseService.dbState().subscribe((res) => {
       if (res) {
@@ -46,9 +58,9 @@ export class MapPage implements OnInit {
             const img = element as HTMLImageElement;
             const step = img.dataset['step'];
             const stepNumber = step ? parseInt(step, 10) : 0;
-  
+
             console.log(stepNumber, this.currentStop);
-  
+
             if (stepNumber <= this.currentStop) {
               img.src = '../../assets/images/pasoLleno.png';
             } else {
@@ -67,12 +79,9 @@ export class MapPage implements OnInit {
   }
   ngOnInit() {
     this.getLocations();
-    this.currentLocation = this.locations[this.currentStop-1];
+    this.currentLocation = this.locations[this.currentStop - 1];
     this.startLocationUpdates();
-    this.updateSpeechBubble(
-      this.currentLocation.lat,
-      this.currentLocation.lon
-    );
+    this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
     document.querySelectorAll('.step').forEach((element) => {
       const img = element as HTMLImageElement;
       const step = img.dataset['step'];
@@ -93,6 +102,7 @@ export class MapPage implements OnInit {
       );
     }, 10000);
   }
+
   setMode(mode: string) {
     this.useGPS = mode === 'gps';
     if (this.useGPS) {
@@ -137,7 +147,7 @@ export class MapPage implements OnInit {
 
       this.watchId = await Geolocation.watchPosition(
         options,
-        (position , err) => {
+        (position, err) => {
           if (err) {
             console.error('Error obteniendo la ubicación:', err);
             return;
@@ -194,14 +204,7 @@ export class MapPage implements OnInit {
     return distance;
   }
   nextLevel(): void {
-    if (this.currentStop < this.locations.length) {
-      this.currentStop++;
-      this.currentLocation = this.locations[this.currentStop - 1];
-      this.updateSpeechBubble(
-        this.currentLocation.lat,
-        this.currentLocation.lon
-      );
-    }
+    this.updateSpeechBubble(this.currentLocation.lat, this.currentLocation.lon);
   }
   goToDescription(): void {
     this.router.navigate(['/description'], {
@@ -210,8 +213,20 @@ export class MapPage implements OnInit {
   }
 
   updateCurrentStop() {
-    this.currentStop += 1;
-    document.documentElement.style.setProperty('--current-stop', this.currentStop.toString());
+    this.databaseService
+      .findBiggestLocationIdWithProgressOne()
+      .then((locationId) => {
+
+        alert(locationId);
+
+        if (locationId !== null) {
+          this.currentStop = locationId + 1;
+        } else {
+          this.currentStop = 1;
+        }
+
+
+        this.nextLevel();
+      });
   }
-  
 }
