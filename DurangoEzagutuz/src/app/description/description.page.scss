@@ -2,23 +2,22 @@
 
 .container {
   width: 100%;
-  min-height: 100vh; /* Asegura que el contenedor tenga altura suficiente */
+  height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
   background-color: $background-color;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  overflow: hidden;
+  overflow: hidden; /* Asegura que no haya scroll */
 }
 
 .back-button-container {
   position: absolute;
-  top: 20px; /* Lo coloca en la parte superior */
-  left: 20px; /* Alineado a la izquierda */
-  z-index: 20; /* Asegura que esté por encima de otros elementos */
+  top: 20px;
+  left: 20px;
+  z-index: 20;
 }
-
 
 .back-button {
   background-color: transparent;
@@ -31,12 +30,12 @@
 .frog-speech {
   display: flex;
   align-items: center;
-  gap: 20px; /* Espacio entre la rana y el speech bubble */
+  gap: 20px;
   margin-bottom: 20px;
 }
 
 .frog-image-container {
-  width: 100px; /* Tamaño reducido de la rana */
+  width: 100px;
   height: auto;
 }
 
@@ -54,10 +53,10 @@
   text-align: center;
   position: relative;
   color: black;
-  max-width: 200px; /* Mantiene un ancho máximo */
-  width: fit-content; /* Se ajusta automáticamente al contenido */
-  min-height: 50px; /* Asegura un tamaño mínimo */
-  word-wrap: break-word; /* Permite saltos de línea si es necesario */
+  max-width: 200px;
+  width: fit-content;
+  min-height: 50px;
+  word-wrap: break-word;
 
   &::after {
     content: "";
@@ -74,10 +73,12 @@
 }
 
 .poster-image-container {
-  position: relative; 
-  width: 400px;
+  position: relative;
+  width: 350px;
   height: auto;
-  margin-bottom: 0; /* Evita que otros elementos se solapen */
+  margin-bottom: -50px; /* Mueve el póster más abajo sin afectar el botón */
+  z-index: 5; /* Asegura que esté por debajo del botón */
+  margin-top: 50px; /* Ajusta la posición hacia abajo si es necesario */
 }
 
 .poster-image {
@@ -89,44 +90,37 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0; /* Asegura que no cubra el botón */
-  top: auto; /* Corrige el posicionamiento */
-  width: 100%;
+  bottom: 0;
+  width: 750%;
   object-fit: cover;
   z-index: 5;
 }
 
-  .poster-container {
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    margin-bottom: -50px;
-  }
-  .poster-image-container {
-    position: relative; 
-    width: 400px;
-    height: auto;
-    margin-bottom: -50px;
-  }
-  
-  .media-container {
-    position: absolute;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 65%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    overflow: hidden;
-    padding-bottom: 25px;
-  }
+.media-container {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  max-width: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  overflow: hidden;
+  padding-bottom: 25px;
+}
 
 .media-element {
-  max-width: 100%; /* Asegura que no exceda el contenedor */
-  max-height: 150px; /* Evita que sea demasiado alto */
-  object-fit: contain; /* Mantiene las proporciones */
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
   border-radius: 10px;
-}  
+}
+
+.action-button__container {
+  margin-top: 0px;
+  margin-bottom: 200px;
+  position: relative;
+  z-index: 10; /* Asegura que esté por encima del póster */
+}
