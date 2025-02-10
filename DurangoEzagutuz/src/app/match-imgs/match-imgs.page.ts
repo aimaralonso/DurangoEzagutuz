@@ -31,31 +31,50 @@ export class MatchImgsPage implements OnInit {
       { id: 4, img_before: 'assets/images/Before4.png', img_after: 'assets/images/After4.png' },
       { id: 5, img_before: 'assets/images/Before5.png', img_after: 'assets/images/After5.png' },
     ];
-    this.beforeImages = hardcodedData.map(item => ({
+  
+    // Desordenar aleatoriamente las imágenes antes y después
+    this.beforeImages = this.shuffleArray(hardcodedData.map(item => ({
+      id: item.id, // Mantener el ID para referenciar correctamente
       src: item.img_before,
       matched: false,
-    }));
-    this.afterImages = hardcodedData.map(item => ({
+    })));
+  
+    this.afterImages = this.shuffleArray(hardcodedData.map(item => ({
+      id: item.id, // Mantener el ID para referenciar correctamente
       src: item.img_after,
       matched: false,
-    }));
-    // Definir los pares correctos basados en los datos hardcodeados
-    this.correctPairs = this.createCorrectPairs(hardcodedData);
-
+    })));
+  
+    // Crear un nuevo mapeo de pares correctos basado en el nuevo orden
+    this.correctPairs = this.createCorrectPairs();
+  
     this.locationId = history.state.location;
   }
-  createCorrectPairs(data: any[]): { [key: number]: number } {
+  
+  // Función para desordenar un array aleatoriamente
+  shuffleArray(array: any[]): any[] {
+    return array
+      .map(value => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
+  }
+  
+  // Crear los pares correctos con los índices actualizados
+  createCorrectPairs(): { [key: number]: number } {
     let pairs: { [key: number]: number } = {};
-    data.forEach((_, index) => {
-      pairs[index] = index; // Cada imagen antes coincide con la misma posición después
+    this.beforeImages.forEach((beforeImage, leftIndex) => {
+      const correctAfterIndex = this.afterImages.findIndex(afterImage => afterImage.id === beforeImage.id);
+      pairs[leftIndex] = correctAfterIndex; // Mapear el nuevo índice de cada imagen antes con su imagen después
     });
     return pairs;
   }
+
   selectLeftImage(index: number) {
     if (this.beforeImages[index].matched) return;
     this.selectedLeftIndex = index;
     this.checkMatch();
   }
+  
   selectRightImage(index: number) {
     if (this.afterImages[index].matched) return;
     this.selectedRightIndex = index;
