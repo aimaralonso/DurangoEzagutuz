@@ -62,8 +62,6 @@ export class DescriptionPage implements OnInit {
   }
 
   goToExplanation(): void {
-    alert("le has dao bobo MADURA");
-    alert(this.selectedLocation?.explanation);
     if (this.selectedLocation?.explanation === "nulo") {
       alert("has entrao bobo")
       const ruta = this.selectedLocation.activity.toLocaleLowerCase();
