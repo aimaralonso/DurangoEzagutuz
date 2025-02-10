@@ -23,32 +23,26 @@ export class MatchImgsPage implements OnInit {
   constructor(private router: Router, private databaseService: DatabaseService) {}
   locationId: number | null = null;
   ngOnInit() {
-    // Datos hardcodeados (simulando los datos de la base de datos)
-    const hardcodedData = [
-      { id: 1, img_before: 'assets/images/Before1.png', img_after: 'assets/images/After1.png' },
-      { id: 2, img_before: 'assets/images/Before2.png', img_after: 'assets/images/After2.png' },
-      { id: 3, img_before: 'assets/images/Before3.png', img_after: 'assets/images/After3.png' },
-      { id: 4, img_before: 'assets/images/Before4.png', img_after: 'assets/images/After4.png' },
-      { id: 5, img_before: 'assets/images/Before5.png', img_after: 'assets/images/After5.png' },
-    ];
-  
-    // Desordenar aleatoriamente las imágenes antes y después
-    this.beforeImages = this.shuffleArray(hardcodedData.map(item => ({
-      id: item.id, // Mantener el ID para referenciar correctamente
-      src: item.img_before,
-      matched: false,
-    })));
-  
-    this.afterImages = this.shuffleArray(hardcodedData.map(item => ({
-      id: item.id, // Mantener el ID para referenciar correctamente
-      src: item.img_after,
-      matched: false,
-    })));
-  
-    // Crear un nuevo mapeo de pares correctos basado en el nuevo orden
-    this.correctPairs = this.createCorrectPairs();
-  
-    this.locationId = history.state.location;
+    // Cargar las imágenes de la base de datos
+    this.databaseService.fetchMatchImgs().subscribe((data: any[]) => {
+      // Desordenar aleatoriamente las imágenes antes y después
+      this.beforeImages = this.shuffleArray(data.map(item => ({
+        id: item.id, // Mantener el ID para referenciar correctamente
+        src: item.img_before,
+        matched: false,
+      })));
+
+      this.afterImages = this.shuffleArray(data.map(item => ({
+        id: item.id, // Mantener el ID para referenciar correctamente
+        src: item.img_after,
+        matched: false,
+      })));
+
+      // Crear un nuevo mapeo de pares correctos basado en el nuevo orden
+      this.correctPairs = this.createCorrectPairs();
+
+      this.locationId = history.state.location;
+    });
   }
   
   // Función para desordenar un array aleatoriamente
@@ -74,7 +68,7 @@ export class MatchImgsPage implements OnInit {
     this.selectedLeftIndex = index;
     this.checkMatch();
   }
-  
+
   selectRightImage(index: number) {
     if (this.afterImages[index].matched) return;
     this.selectedRightIndex = index;
