@@ -15,6 +15,8 @@
 .back-button-container {
   align-self: flex-start;
   margin-bottom: 20px;
+  z-index: 20; /* Asegura que el botón esté encima */
+  position: relative; /* Asegura que no se vea afectado por otros elementos */
 }
 
 .back-button {
@@ -51,8 +53,10 @@
   text-align: center;
   position: relative;
   color: black;
-  max-width: 200px; /* Ancho máximo del speech bubble */
-  height: 250px;
+  max-width: 200px; /* Mantiene un ancho máximo */
+  width: fit-content; /* Se ajusta automáticamente al contenido */
+  min-height: 50px; /* Asegura un tamaño mínimo */
+  word-wrap: break-word; /* Permite saltos de línea si es necesario */
 
   &::after {
     content: "";
@@ -69,10 +73,10 @@
 }
 
 .poster-image-container {
-  width: 400px; 
+  position: relative; 
+  width: 400px;
   height: auto;
-  margin-bottom: -50px;
-  z-index: 5;
+  margin-bottom: 0; /* Evita que otros elementos se solapen */
 }
 
 .poster-image {
@@ -81,15 +85,15 @@
 }
 
 .poster-pata {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 85%;
-    width: 100%;
-    object-fit: cover;
-    z-index: 5;
-  }
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; /* Asegura que no cubra el botón */
+  top: auto; /* Corrige el posicionamiento */
+  width: 100%;
+  object-fit: cover;
+  z-index: 5;
+}
 
   .poster-container {
     display: flex;
@@ -106,19 +110,22 @@
   
   .media-container {
     position: absolute;
-    top: 100px; /* Mueve el video más arriba */
-    left: 0;
-    width: 100%;
-    height: auto; /* Ajuste para que el contenedor no estire más de lo necesario */
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 65%;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alineación al inicio para moverlo arriba */
+    align-items: center;
     z-index: 10;
+    overflow: hidden;
+    padding-bottom: 25px;
   }
-  
-  .media-element {
-    max-width: 90%; /* Reduces el tamaño del video */
-    max-height: 200px; /* Controlas la altura máxima */
-    border-radius: 10px;
-  }
-  
+
+.media-element {
+  max-width: 100%; /* Asegura que no exceda el contenedor */
+  max-height: 150px; /* Evita que sea demasiado alto */
+  object-fit: contain; /* Mantiene las proporciones */
+  border-radius: 10px;
+}  
