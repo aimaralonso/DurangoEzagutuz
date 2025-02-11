@@ -33,14 +33,14 @@ export class CongratsPage implements OnInit {
 
   async ngOnInit() {
     this.locationId = history.state.location;
-    alert(this.locationId);
+
     if (this.locationId !== null) {
       try {
         // Actualiza el progreso a 1 (completado)
         await this.dbService.updateProgress(this.locationId, 1);
-        alert('Progress updated for location:' + this.locationId);
+
       } catch (error) {
-        alert('Error updating progress:'+ error);
+
       }
     }
   }

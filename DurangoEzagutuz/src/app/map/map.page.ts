@@ -217,8 +217,6 @@ export class MapPage implements OnInit {
       .findBiggestLocationIdWithProgressOne()
       .then((locationId) => {
 
-        alert(locationId);
-
         if (locationId !== null) {
           this.currentStop = locationId + 1;
         } else {

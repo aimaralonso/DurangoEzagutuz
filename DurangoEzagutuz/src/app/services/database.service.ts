@@ -223,7 +223,6 @@ export class DatabaseService {
         LIMIT 1;
       `;
       const res = await this.storage.executeSql(query, []);
-      alert(res);
       if (res.rows.length > 0) {
         return res.rows.item(0).location_id;
       } else {
